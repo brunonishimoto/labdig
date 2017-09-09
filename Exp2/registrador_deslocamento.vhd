@@ -33,10 +33,7 @@ begin
 	   data_ascii <= IQ(7 downto 1);
 	 
 	   -- usaremos paridade PAR
-	   paridade <= IQ(1) xor IQ(2) xor IQ(3) 
-				xor IQ(4) xor IQ(5) xor IQ(6) 
-				xor IQ(7);
-				
+	   paridade <= IQ(8);
 	 end if;
     
     saida <= IQ;     

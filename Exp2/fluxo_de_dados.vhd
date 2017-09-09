@@ -10,7 +10,7 @@ entity fluxo_de_dados is
 		  desloca		 : in  std_logic;
 		  zera			 : in  std_logic;
 		  conta			 : in  std_logic;
-		  paridade		 : out std_logic;
+		  paridade_ok	 : out std_logic;
 		  dado_ascii	 : out std_logic_vector(6 downto 0);
 		  saidaQ			 : out std_logic_vector(10 downto 0);	--depuracao
 		  fim				 : out std_logic);
@@ -37,20 +37,30 @@ architecture exemplo of fluxo_de_dados is
 	end component;
 	
 	component receptor is
-		port (clock			: in  std_logic;
+		port(clock			: in  std_logic;
 				bit_in      : in  std_logic;
 				fim_operacao: in  std_logic;
 				saida       : out std_logic);
 	end component;
+	
+--	component comparador_de_paridade is
+--		port(paridade_recebida: in std_logic;
+--			  dado_recebido: in std_logic_vector(6 donwto 0);
+--			  indicado_de_paridade: out std_logic);
+--	end component;
 
 signal generated_clock: std_logic;
 signal s1 : std_logic_vector(10 downto 0);	
 signal s3 : std_logic_vector(3 downto 0);
+signal s_ascii: std_logic_vector(6 downto 0);
+
 
 begin
 	g1 : receptor port map (clock, dado_serial, zera, generated_clock);
-	g2 : registrador_deslocamento port map (generated_clock, carrega, desloca, dado_serial, paridade, dado_ascii, s1);
+	g2 : registrador_deslocamento port map (generated_clock, carrega, desloca, dado_serial, paridade, s_ascii, s1);
 	g3 : contador port map (generated_clock, zera, conta, s3, fim);
-	
+--	g4 : comparador_de_paridade port map (paridade, s_ascii, paridade_ok);
+
 	saidaQ <= s1;
+	dado_ascii <= s_ascii;
 end exemplo;
