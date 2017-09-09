@@ -20,10 +20,10 @@ begin
 	process (clock, conta, IQ, zera)
 	begin
 	
-	if clock'event and clock = '1' then
-		if zera = '1' then 
-			IQ <= (others => '0');
-		elsif conta = '1' then 
+	if zera = '1' then
+		IQ <= (others => '0');
+	elsif clock'event and clock = '1' then
+		if conta = '1' then 
 			IQ <= IQ + 1;
 		end if;
 	end if;

@@ -6,7 +6,8 @@ use ieee.std_logic_arith.all;
 
 entity inversor_sincrono is
     port(clock   : in  std_logic;
-         saida   : out  std_logic := '0');
+			desativa: in  std_logic;
+         saida   : out std_logic := '0');
 end inversor_sincrono;
 
 architecture exemplo of inversor_sincrono is
@@ -17,10 +18,14 @@ begin
 	begin
 		
 		if clock'event and clock = '1' then
-			if (s = '0') then
-				s <= '1';
-			else 
+			if desativa = '1' then
 				s <= '0';
+			else
+				if (s = '0') then
+					s <= '1';
+				else 
+					s <= '0';
+				end if;
 			end if;
 		end if;
 		   

@@ -5,7 +5,7 @@ use ieee.std_logic_1164.all;
 
 entity registrador_deslocamento is
     port(clock      : in  std_logic; 
-         load       : in  std_logic; 
+         clear      : in  std_logic; 
          shift      : in  std_logic;
          bit_in     : in  std_logic;
 			paridade   : out std_logic;
@@ -17,14 +17,11 @@ architecture exemplo of registrador_deslocamento is
 signal IQ				: std_logic_vector(10 downto 0) := "00000000000";
 
 begin
-	process (clock, load, shift, IQ)
+	process (clock, clear, shift, IQ)
 	begin
-	
-	if (clock'event and clock = '1') then
-		if (load = '1') then
+	if (clear = '1') then
 			IQ <= (others => '0');
-		end if;
-		
+	elsif (clock'event and clock = '1') then
 		if (shift = '1') then	--desloca e acrescenta o bit de entrada
 			IQ <= bit_in & IQ(10 downto 1);
 		end if;
@@ -33,8 +30,8 @@ begin
 		
 		--bit de paridade vem depois dos bits de dados
 	   paridade <= IQ(8);
-	 end if;
+	end if;
     
-    saida <= IQ;     
+		saida <= IQ;     
 	end process;
 end exemplo;
