@@ -23,12 +23,13 @@ architecture exemplo of receptor is
 		port(clock     : in  std_logic;
 			  zera      : in  std_logic;
 			  conta     : in  std_logic;
-			  fim       : out std_logic);
+			  fim       : out std_logic := '0');
 	end component;
 	
-	signal s1: std_logic;
+	signal ativa: std_logic;
+	signal fim_contagem: std_logic;
 	
 	begin
-		r1: ativador port map (bit_in, fim_operacao, s1);
-		r2: contador_mod_quatro port map (clock, fim_operacao, s1, saida);
+		r1: ativador port map (bit_in, fim_operacao, ativa);
+		r2: contador_mod_quatro port map (clock, fim_operacao, ativa, saida);
 end exemplo;
