@@ -40,7 +40,9 @@ begin
 				end if;
                               
 			when final => 				-- Fim da recepcao serial
-				estado <= inicial;
+				if comeca = '1' then
+					estado <= preparacao;
+				end if;
 					
 		end case;
 	end if;
