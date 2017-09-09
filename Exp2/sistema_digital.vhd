@@ -11,7 +11,7 @@ entity sistema_digital is
 		  dados_ascii	 : out  std_logic_vector(6 downto 0);
 		  registrador	 : out std_logic_vector(10 downto 0);	-- Depuracao
 		  saidas_estado : out std_logic_vector(4 downto 0);	-- Depuracao
-		  pronto		    : out std_logic);
+		  fim_operacao  : out std_logic);
 end sistema_digital;
 
 architecture exemplo of sistema_digital is 
@@ -47,6 +47,6 @@ begin
 				
 	registrador   <= f3;
 	saidas_estado <= f2;
-	pronto        <= f1;
+	fim_operacao  <= f1;
 
 end exemplo;
