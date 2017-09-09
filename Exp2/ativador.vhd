@@ -1,4 +1,4 @@
--- VHDL do ativador do receptor (basicamente um flip-flop SR)
+-- VHDL do ativador do receptor (basicamente um latch SR)
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -11,21 +11,16 @@ entity ativador is
 end ativador;
 
 architecture exemplo of ativador is
-signal IQ: std_logic := '0';
 
 begin
 	process (set, reset)
 	begin
 	
-	if set'event and set = '1' then
-		IQ <= '1';
-	end if;
-	
-   if reset'event and reset = '1' then
-		IQ <= '0';
-   end if;
-	
-	ativa <= IQ;  
-   
+		if set = '1' then
+			ativa <= '1';
+		elsif reset = '1' then
+			ativa <= '0';
+	   end if;
+		   
 	end process;
 end exemplo;
