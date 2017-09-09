@@ -16,7 +16,7 @@ begin
 	process (set, reset)
 	begin
 	
-		if set = '1' then
+		if set = '0' then
 			ativa <= '1';
 		elsif reset = '1' then
 			ativa <= '0';
