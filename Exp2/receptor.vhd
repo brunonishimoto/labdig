@@ -26,9 +26,16 @@ architecture exemplo of receptor is
 			  fim       : out std_logic);
 	end component;
 	
-	signal s1: std_logic;
+	component inversor_sincrono is
+		port(clock   : in  std_logic;
+           saida   : out  std_logic := '0');
+	end component;
+	
+	signal ativa: std_logic;
+	signal fim_contagem: std_logic;
 	
 	begin
-		r1: ativador port map (bit_in, fim_operacao, s1);
-		r2: contador_mod_quatro port map (clock, fim_operacao, s1, saida);
+		r1: ativador port map (bit_in, fim_operacao, ativa);
+		r2: contador_mod_quatro port map (clock, fim_operacao, ativa, fim_contagem);
+		r3: inversor_sincrono port map (fim_contagem, saida);
 end exemplo;

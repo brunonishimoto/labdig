@@ -13,24 +13,26 @@ end contador_mod_quatro;
 
 architecture exemplo of contador_mod_quatro is
 signal IQ: unsigned(1 downto 0);
+signal output: std_logic;
 
 begin
 	process (clock, conta, IQ, zera)
 	begin
 	
-	if clock'event and clock = '1' then
-		if zera = '1' then 
-			IQ <= (others => '0');
-		elsif conta = '1' then 
-			IQ <= IQ + 1;
+		if clock'event and clock = '1' then
+			if zera = '1' then 
+				IQ <= (others => '0');
+			elsif conta = '1' then 
+				IQ <= IQ + 1;
+			end if;
 		end if;
-	end if;
-	
-   if IQ = 3 then 
-		fim <= '1';
-	else 
-		fim <= '0';
-	end if;  
-   
+		
+		if IQ = 3 then 
+			fim <= '1';
+		else
+			fim <= '0';
+		end if;  
+		
 	end process;
+	
 end exemplo;
