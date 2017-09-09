@@ -15,7 +15,6 @@ end registrador_deslocamento;
 
 architecture exemplo of registrador_deslocamento is
 signal IQ				: std_logic_vector(10 downto 0) := "00000000000";
-signal data_bit		: std_logic;
 
 begin
 	process (clock, load, shift, IQ)
@@ -23,16 +22,16 @@ begin
 	
 	if (clock'event and clock = '1') then
 		if (load = '1') then
-			data_bit <= bit_in;	--bit serial
+			IQ <= (others => '0');
 		end if;
 		
 		if (shift = '1') then	--desloca e acrescenta o bit de entrada
-			IQ <= data_bit & IQ(10 downto 1);
+			IQ <= bit_in & IQ(10 downto 1);
 		end if;
 	 
 	   data_ascii <= IQ(7 downto 1);
-	 
-	   -- usaremos paridade PAR
+		
+		--bit de paridade vem depois dos bits de dados
 	   paridade <= IQ(8);
 	 end if;
     

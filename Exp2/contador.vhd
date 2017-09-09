@@ -28,7 +28,7 @@ begin
 		end if;
 	end if;
 	
-   if IQ = 10 then 
+   if IQ = 11 then 
 		fim <= '1';
 	else 
 		fim <= '0';

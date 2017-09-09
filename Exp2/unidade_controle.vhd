@@ -32,7 +32,7 @@ begin
 			when preparacao =>		-- Zera contador e carrega bit no registrador
 				estado <= recepcao;
                
-			when recepcao =>		-- Desloca os bits no registrador
+			when recepcao =>		-- Desloca os bits no registrador e conta
 				if fim = '1' then
 					estado <= final;
 				else
