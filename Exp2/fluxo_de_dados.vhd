@@ -53,6 +53,7 @@ signal generated_clock: std_logic;
 signal s1 : std_logic_vector(10 downto 0);	
 signal s3 : std_logic_vector(3 downto 0);
 signal s_ascii: std_logic_vector(6 downto 0);
+signal paridade: std_logic;
 
 
 begin
