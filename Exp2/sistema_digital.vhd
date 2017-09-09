@@ -42,15 +42,17 @@ architecture exemplo of sistema_digital is
 signal fim : std_logic;
 signal estado : std_logic_vector(3 downto 0);
 signal f3 : std_logic_vector(10 downto 0);
+signal paridade: std_logic := '0';
 	
 begin 
 	
 	k1 : unidade_controle port map (clock, partida, fim, reset, estado);
 	k2 : fluxo_de_dados   port map (clock, dado_serial, estado(2),estado(3), estado(1), 
-											  paridade_ok, dados_ascii, f3, contador_bits, fim);
+											  paridade, dados_ascii, f3, contador_bits, fim);
 				
 	registrador   <= f3;
 	saidas_estado <= estado;
 	fim_operacao  <= fim;
+	paridade_ok <= fim and paridade;
 
 end exemplo;
