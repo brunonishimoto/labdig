@@ -5,15 +5,15 @@ use ieee.std_logic_1164.all;
 
 entity unidade_controle_transmissao is
    port(clock      : in   std_logic;
-        RESET      : in   std_logic;
-        Liga       : in   std_logic;
-        Enviar     : in   std_logic;
-        DadoSerial : in   std_logic;
+        reset      : in   std_logic;
+        liga       : in   std_logic;
+        enviar     : in   std_logic;
+        dadoSerial : in   std_logic;
         CTS        : in   std_logic;
         DTR        : out  std_logic;
         RTS        : out  std_logic;
         TD         : out  std_logic;
-        envioOK    : out  std_logic;
+        envioOk    : out  std_logic;
         saida      : out  std_logic_vector(3 downto 0));  -- controle de estados
 end unidade_controle_transmissao;
 
@@ -22,18 +22,18 @@ type tipo_estado is (inicial, preparacao, transmissao, desabilitado, final);
 signal estado   : tipo_estado;
 
 begin
-  process (clock, estado, RESET)
+  process (clock, estado, reset)
   begin
 
-    if Liga = '0' then
+    if liga = '0' then
       estado <= desabilitado;
-    elsif RESET = '1' then
+    elsif reset = '1' then
       estado <= inicial;
 
     elsif (clock'event and clock = '1') then
       case estado is
       when inicial =>      -- Aguarda sinal de inicio
-        if Enviar = '1' then
+        if enviar = '1' then
           estado <= preparacao;
         end if;
 
@@ -43,7 +43,7 @@ begin
         end if;
 
       when transmissao =>    -- Envia o que estiver na entrada de dados
-        if Enviar = '0' then
+        if enviar = '0' then
           estado <= final;
         end if;
 
@@ -53,7 +53,7 @@ begin
         end if;
 
       when desabilitado =>         -- Circuito desabilitado
-        if Liga = '1' then
+        if liga = '1' then
           estado <= inicial;
         end if;
 
@@ -66,31 +66,31 @@ begin
     case estado is
       when inicial =>
         saida <= "0000";
-        envioOK <= '0';
+        envioOk <= '0';
         DTR <= '1';
         RTS <= '1';
         TD <= '1';
       when preparacao =>
         saida <= "0001";
-        envioOK <= '0';
+        envioOk <= '0';
         DTR <= '0';
         RTS <= '0';
         TD <= '1';
       when transmissao =>
         saida <= "0010";
-        envioOK <= '1';
+        envioOk <= '1';
         DTR <= '0';
         RTS <= '0';
-        TD <= DadoSerial;
+        TD <= dadoSerial;
       when final =>
         saida <= "0011";
-        envioOK <= '0';
+        envioOk <= '0';
         DTR <= '1';
         RTS <= '1';
         TD <= '1';
       when desabilitado =>
         saida <= "1111";
-        envioOK <= '0';
+        envioOk <= '0';
         DTR <= '1';
         RTS <= '1';
         TD <= '1';
