@@ -9,13 +9,14 @@ entity unidade_controle_recepcao is
         liga            : in   std_logic;
         CD              : in   std_logic;
         RD              : in   std_logic;
+        DTR             : out  std_logic;
         temDadoRecebido : out  std_logic;
         dadoRecebido    : out  std_logic;
         saida           : out  std_logic_vector(3 downto 0));  -- controle de estados
 end unidade_controle_recepcao;
 
 architecture unidade_controle of unidade_controle_recepcao is
-type tipo_estado is (inicial, recepcao, desabilitado);
+type tipo_estado is (inicial, recepcao, final, desabilitado);
 signal estado   : tipo_estado;
 
 begin
@@ -36,6 +37,11 @@ begin
 
       when recepcao =>   -- Recebe o sinal do modem
         if CD = '1' then   -- Ativo em baixo
+          estado <= final;
+        end if;
+
+      when final =>      -- Aguarda desativação do sinal RD
+        if RD = '1' then   -- Ativo em baixo
           estado <= inicial;
         end if;
 
@@ -52,14 +58,22 @@ begin
   begin
     case estado is
       when inicial =>
+        DTR <= '0';
         saida <= "0000";
         temDadoRecebido <= '0';
         dadoRecebido <= '0';
       when recepcao =>
+        DTR <= '0';
         saida <= "0001";
         temDadoRecebido <= '1';
         dadoRecebido <= RD;
+      when final =>
+        DTR <= '0';
+        saida <= "0010";
+        temDadoRecebido <= '0';
+        dadoRecebido <= '0';
       when desabilitado =>
+        DTR <= '1';
         saida <= "1111";
         temDadoRecebido <= '0';
         dadoRecebido <= '0';
