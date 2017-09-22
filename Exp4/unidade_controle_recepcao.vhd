@@ -5,12 +5,12 @@ use ieee.std_logic_1164.all;
 
 entity unidade_controle_recepcao is
    port(clock           : in   std_logic;
-        RESET           : in   std_logic;
-        Liga            : in   std_logic;
+        reset           : in   std_logic;
+        liga            : in   std_logic;
         CD              : in   std_logic;
         RD              : in   std_logic;
         temDadoRecebido : out  std_logic;
-        DadoRecebido    : out  std_logic;
+        dadoRecebido    : out  std_logic;
         saida           : out  std_logic_vector(3 downto 0));  -- controle de estados
 end unidade_controle_recepcao;
 
@@ -19,12 +19,12 @@ type tipo_estado is (inicial, recepcao, desabilitado);
 signal estado   : tipo_estado;
 
 begin
-  process (clock, estado, RESET)
+  process (clock, estado, reset)
   begin
 
-    if Liga = '0' then
+    if liga = '0' then
       estado <= desabilitado;
-    elsif RESET = '1' then
+    elsif reset = '1' then
       estado <= inicial;
 
     elsif (clock'event and clock = '1') then
@@ -40,7 +40,7 @@ begin
         end if;
 
       when desabilitado =>         -- Circuito desabilitado
-        if Liga = '1' then
+        if liga = '1' then
           estado <= inicial;
         end if;
 
@@ -54,15 +54,15 @@ begin
       when inicial =>
         saida <= "0000";
         temDadoRecebido <= '0';
-        DadoRecebido <= '0';
+        dadoRecebido <= '0';
       when recepcao =>
         saida <= "0001";
         temDadoRecebido <= '1';
-        DadoRecebido <= RD;
+        dadoRecebido <= RD;
       when desabilitado =>
         saida <= "1111";
         temDadoRecebido <= '0';
-        DadoRecebido <= '0';
+        dadoRecebido <= '0';
     end case;
    end process;
 end unidade_controle;
