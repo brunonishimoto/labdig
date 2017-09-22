@@ -20,6 +20,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -38,6 +39,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script_timing>
 <hdl_lang>vhdl</hdl_lang>
 </simulation_settings>*/
@@ -96,16 +98,6 @@ SIGNAL("CTS")
 	PARENT = "";
 }
 
-SIGNAL("DadoSerial")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
 SIGNAL("DTR")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
@@ -113,46 +105,6 @@ SIGNAL("DTR")
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("Enviar")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
-SIGNAL("envioOK")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("Liga")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
-SIGNAL("RESET")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
 	PARENT = "";
 }
 
@@ -226,6 +178,56 @@ SIGNAL("TD")
 	PARENT = "";
 }
 
+SIGNAL("dadoSerial")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("enviar")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("envioOk")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("liga")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("reset")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
 TRANSITION_LIST("clock")
 {
 	NODE
@@ -253,78 +255,12 @@ TRANSITION_LIST("CTS")
 	}
 }
 
-TRANSITION_LIST("DadoSerial")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 60.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 30.0;
-		NODE
-		{
-			REPEAT = 5;
-			LEVEL 0 FOR 30.0;
-			LEVEL 1 FOR 30.0;
-		}
-		LEVEL 0 FOR 30.0;
-		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 460.0;
-	}
-}
-
 TRANSITION_LIST("DTR")
 {
 	NODE
 	{
 		REPEAT = 1;
 		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("Enviar")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 410.0;
-		LEVEL 0 FOR 470.0;
-	}
-}
-
-TRANSITION_LIST("envioOK")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("Liga")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 30.0;
-		LEVEL 1 FOR 430.0;
-		LEVEL 0 FOR 460.0;
-	}
-}
-
-TRANSITION_LIST("RESET")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 1 FOR 30.0;
-		LEVEL 0 FOR 970.0;
 	}
 }
 
@@ -382,6 +318,76 @@ TRANSITION_LIST("TD")
 	}
 }
 
+TRANSITION_LIST("dadoSerial")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 60.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 460.0;
+	}
+}
+
+TRANSITION_LIST("enviar")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 410.0;
+		LEVEL 0 FOR 470.0;
+	}
+}
+
+TRANSITION_LIST("envioOk")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("liga")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 430.0;
+		LEVEL 0 FOR 460.0;
+	}
+}
+
+TRANSITION_LIST("reset")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 1 FOR 30.0;
+		LEVEL 0 FOR 970.0;
+	}
+}
+
 DISPLAY_LINE
 {
 	CHANNEL = "clock";
@@ -393,7 +399,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "RESET";
+	CHANNEL = "reset";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 1;
@@ -402,7 +408,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "Liga";
+	CHANNEL = "liga";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 2;
@@ -411,7 +417,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "Enviar";
+	CHANNEL = "enviar";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 3;
@@ -429,7 +435,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "DadoSerial";
+	CHANNEL = "dadoSerial";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 5;
@@ -465,7 +471,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "envioOK";
+	CHANNEL = "envioOk";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 9;

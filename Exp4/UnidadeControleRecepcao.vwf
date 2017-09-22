@@ -20,6 +20,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -38,6 +39,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script_timing>
 <hdl_lang>vhdl</hdl_lang>
 </simulation_settings>*/
@@ -106,27 +108,7 @@ SIGNAL("DadoRecebido")
 	PARENT = "";
 }
 
-SIGNAL("Liga")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
 SIGNAL("RD")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
-SIGNAL("RESET")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -196,6 +178,46 @@ SIGNAL("temDadoRecebido")
 	PARENT = "";
 }
 
+SIGNAL("dadoRecebido")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("DTR")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("liga")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("reset")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
 TRANSITION_LIST("CD")
 {
 	NODE
@@ -235,19 +257,6 @@ TRANSITION_LIST("DadoRecebido")
 	{
 		REPEAT = 1;
 		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("Liga")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 30.0;
-		LEVEL 1 FOR 50.0;
-		LEVEL 0 FOR 60.0;
-		LEVEL 1 FOR 360.0;
-		LEVEL 0 FOR 500.0;
 	}
 }
 
@@ -310,16 +319,6 @@ TRANSITION_LIST("RD")
 	}
 }
 
-TRANSITION_LIST("RESET")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 1 FOR 30.0;
-		LEVEL 0 FOR 970.0;
-	}
-}
-
 TRANSITION_LIST("saida[3]")
 {
 	NODE
@@ -365,6 +364,47 @@ TRANSITION_LIST("temDadoRecebido")
 	}
 }
 
+TRANSITION_LIST("dadoRecebido")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("DTR")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("liga")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 80.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 360.0;
+		LEVEL 0 FOR 500.0;
+	}
+}
+
+TRANSITION_LIST("reset")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 980.0;
+	}
+}
+
 DISPLAY_LINE
 {
 	CHANNEL = "clock";
@@ -376,7 +416,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "RESET";
+	CHANNEL = "reset";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 1;
@@ -385,7 +425,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "Liga";
+	CHANNEL = "liga";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 2;
@@ -476,6 +516,24 @@ DISPLAY_LINE
 	TREE_INDEX = 11;
 	TREE_LEVEL = 1;
 	PARENT = 7;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoRecebido";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 12;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "DTR";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 13;
+	TREE_LEVEL = 0;
 }
 
 TIME_BAR
