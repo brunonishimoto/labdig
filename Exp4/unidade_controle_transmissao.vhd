@@ -73,8 +73,8 @@ begin
       when preparacao =>
         saida <= "0001";
         envioOK <= '0';
-        DTR <= '1';
-        RTS <= '1';
+        DTR <= '0';
+        RTS <= '0';
         TD <= '1';
       when transmissao =>
         saida <= "0010";
