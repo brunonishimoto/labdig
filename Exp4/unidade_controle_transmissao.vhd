@@ -48,7 +48,7 @@ begin
         end if;
 
       when final =>         -- Fim da transmissao serial
-        if Enviar = '1' then
+        if CTS = '1' then
           estado <= inicial;
         end if;
 
