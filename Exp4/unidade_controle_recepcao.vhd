@@ -15,7 +15,7 @@ entity unidade_controle_recepcao is
 end unidade_controle_recepcao;
 
 architecture unidade_controle of unidade_controle_recepcao is
-type tipo_estado is (inicial, detectando, desabilitado);
+type tipo_estado is (inicial, recepcao, desabilitado);
 signal estado   : tipo_estado;
 
 begin
@@ -31,10 +31,10 @@ begin
       case estado is
       when inicial =>      -- Aguarda sinal de inicio
         if CD = '0' then   -- Ativo em baixo
-          estado <= detectando;
+          estado <= recepcao;
         end if;
 
-      when detectando =>   -- Recebe o sinal do modem
+      when recepcao =>   -- Recebe o sinal do modem
         if CD = '1' then   -- Ativo em baixo
           estado <= inicial;
         end if;
@@ -55,7 +55,7 @@ begin
         saida <= "0000";
         temDadoRecebido <= '0';
         DadoRecebido <= '0';
-      when detectando =>
+      when recepcao =>
         saida <= "0001";
         temDadoRecebido <= '1';
         DadoRecebido <= RD;
