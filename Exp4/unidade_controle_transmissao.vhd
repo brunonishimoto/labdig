@@ -67,7 +67,7 @@ begin
       when inicial =>
         saida <= "0000";
         envioOk <= '0';
-        DTR <= '1';
+        DTR <= '0';
         RTS <= '1';
         TD <= '1';
       when preparacao =>
@@ -85,7 +85,7 @@ begin
       when final =>
         saida <= "0011";
         envioOk <= '0';
-        DTR <= '1';
+        DTR <= '0';
         RTS <= '1';
         TD <= '1';
       when desabilitado =>
