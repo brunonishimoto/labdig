@@ -1,14 +1,14 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off unidade_controle_recepcao -c unidade_controle_recepcao --vector_source="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp4/UnidadeControleRecepcao.vwf" --testbench_file="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp4/simulation/qsim/UnidadeControleRecepcao.vwf.vht"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off unidade_controle_recepcao -c unidade_controle_recepcao --vector_source="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp4/UnidadeControleRecepcao.vwf" --testbench_file="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp4/simulation/qsim/UnidadeControleRecepcao.vwf.vht"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp4/simulation/qsim/" unidade_controle_recepcao -c unidade_controle_recepcao</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp4/simulation/qsim/" unidade_controle_recepcao -c unidade_controle_recepcao</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off interface_modem -c interface_modem --vector_source="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp4/UnidadeControleRecepcao.vwf" --testbench_file="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp4/simulation/qsim/UnidadeControleRecepcao.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off interface_modem -c interface_modem --vector_source="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp4/UnidadeControleRecepcao.vwf" --testbench_file="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp4/simulation/qsim/UnidadeControleRecepcao.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp4/simulation/qsim/" interface_modem -c interface_modem</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp4/simulation/qsim/" interface_modem -c interface_modem</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
-vcom -work work unidade_controle_recepcao.vho
+vcom -work work interface_modem.vho
 vcom -work work UnidadeControleRecepcao.vwf.vht
 vsim -novopt -c -t 1ps -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.unidade_controle_recepcao_vhd_vec_tst
-vcd file -direction unidade_controle_recepcao.msim.vcd
+vcd file -direction interface_modem.msim.vcd
 vcd add -internal unidade_controle_recepcao_vhd_vec_tst/*
 vcd add -internal unidade_controle_recepcao_vhd_vec_tst/i1/*
 proc simTimestamp {} {
@@ -20,14 +20,13 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
-
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
-vcom -work work unidade_controle_recepcao.vho
+vcom -work work interface_modem.vho
 vcom -work work UnidadeControleRecepcao.vwf.vht
-vsim -novopt -c -t 1ps -sdfmax unidade_controle_recepcao_vhd_vec_tst/i1=unidade_controle_recepcao_vhd.sdo -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.unidade_controle_recepcao_vhd_vec_tst
-vcd file -direction unidade_controle_recepcao.msim.vcd
+vsim -novopt -c -t 1ps -sdfmax unidade_controle_recepcao_vhd_vec_tst/i1=interface_modem_vhd.sdo -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.unidade_controle_recepcao_vhd_vec_tst
+vcd file -direction interface_modem.msim.vcd
 vcd add -internal unidade_controle_recepcao_vhd_vec_tst/*
 vcd add -internal unidade_controle_recepcao_vhd_vec_tst/i1/*
 proc simTimestamp {} {
@@ -39,7 +38,6 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
-
 </modelsim_script_timing>
 <hdl_lang>vhdl</hdl_lang>
 </simulation_settings>*/

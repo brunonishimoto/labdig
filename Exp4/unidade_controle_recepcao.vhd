@@ -11,7 +11,6 @@ entity unidade_controle_recepcao is
         RD              : in   std_logic;
         DTR             : out  std_logic;
         temDadoRecebido : out  std_logic;
-        dadoRecebido    : out  std_logic;
         saida           : out  std_logic_vector(3 downto 0));  -- controle de estados
 end unidade_controle_recepcao;
 
@@ -61,22 +60,18 @@ begin
         DTR <= '0';
         saida <= "0000";
         temDadoRecebido <= '0';
-        dadoRecebido <= '0';
       when recepcao =>
         DTR <= '0';
         saida <= "0001";
         temDadoRecebido <= '1';
-        dadoRecebido <= RD;
       when final =>
         DTR <= '0';
         saida <= "0010";
         temDadoRecebido <= '0';
-        dadoRecebido <= '0';
       when desabilitado =>
         DTR <= '1';
         saida <= "1111";
         temDadoRecebido <= '0';
-        dadoRecebido <= '0';
     end case;
    end process;
 end unidade_controle;
