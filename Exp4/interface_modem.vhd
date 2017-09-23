@@ -18,8 +18,8 @@ entity interface_modem is
        envioOk            : out  std_logic;
        temDadoRecebido    : out  std_logic;
        dadoRecebido       : out  std_logic;
-       estado_recepcao    : out std_logic_vector(3 downto 0);
-       estado_transmissao : out std_logic_vector(3 downto 0));
+       estado_recepcao    : out std_logic_vector(3 downto 0); -- depuracao do circuito de recepcao
+       estado_transmissao : out std_logic_vector(3 downto 0)); -- depuracao do circuito de transmissao
 end interface_modem;
 
 architecture interface of interface_modem is
