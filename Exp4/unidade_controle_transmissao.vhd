@@ -8,11 +8,9 @@ entity unidade_controle_transmissao is
         reset      : in   std_logic;
         liga       : in   std_logic;
         enviar     : in   std_logic;
-        dadoSerial : in   std_logic;
         CTS        : in   std_logic;
         DTR        : out  std_logic;
         RTS        : out  std_logic;
-        TD         : out  std_logic;
         envioOk    : out  std_logic;
         saida      : out  std_logic_vector(3 downto 0));  -- controle de estados
 end unidade_controle_transmissao;
@@ -69,31 +67,26 @@ begin
         envioOk <= '0';
         DTR <= '0';
         RTS <= '1';
-        TD <= '1';
       when preparacao =>
         saida <= "0001";
         envioOk <= '0';
         DTR <= '0';
         RTS <= '0';
-        TD <= '1';
       when transmissao =>
         saida <= "0010";
         envioOk <= '1';
         DTR <= '0';
         RTS <= '0';
-        TD <= dadoSerial;
       when final =>
         saida <= "0011";
         envioOk <= '0';
         DTR <= '0';
         RTS <= '1';
-        TD <= '1';
       when desabilitado =>
         saida <= "1111";
         envioOk <= '0';
         DTR <= '1';
         RTS <= '1';
-        TD <= '1';
     end case;
    end process;
 end unidade_controle;
