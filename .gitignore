@@ -3,5 +3,4 @@
 */output_files/
 */*
 !*/*.vhd
-!*/*.qsf
 !*/*.vwf
