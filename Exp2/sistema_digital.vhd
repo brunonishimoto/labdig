@@ -56,7 +56,7 @@ begin
 
   unidade_controle : unidade_controle port map (clock, dado_serial, fim, reset, estado);
   fluxo_dados : fluxo_de_dados   port map (clock, dado_serial, estado(2),estado(3), estado(1),
-                                           sparidade, s_ascii, s_registrador, contador_bits, fim);
+                                           paridade, s_ascii, s_registrador, contador_bits, fim);
 
   display_unidade : conversor_7seg port map (s_ascii(3 downto 0), fim, display_primeiro);
   display_dezena : conversor_7seg port map ('0' & s_ascii(6 downto 4), fim, display_segundo);
