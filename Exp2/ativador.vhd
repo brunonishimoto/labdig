@@ -5,9 +5,9 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 
 entity ativador is
-    port(set     : in  std_logic;
-         reset   : in  std_logic;
-         ativa   : out std_logic);
+    port(set  : in  std_logic;
+         reset: in  std_logic;
+         ativa: out std_logic);
 end ativador;
 
 architecture exemplo of ativador is

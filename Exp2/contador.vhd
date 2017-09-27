@@ -6,11 +6,11 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 
 entity contador is
-    port(clock     : in  std_logic;
-         zera      : in  std_logic;
-         conta     : in  std_logic;
-         contagem  : out std_logic_vector(3 downto 0);
-         fim       : out std_logic);
+    port(clock   : in  std_logic;
+         zera    : in  std_logic;
+         conta   : in  std_logic;
+         contagem: out std_logic_vector(3 downto 0);
+         fim     : out std_logic);
 end contador;
 
 architecture exemplo of contador is
