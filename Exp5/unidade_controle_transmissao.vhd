@@ -11,7 +11,8 @@ entity unidade_controle_transmissao is
         prontoTransmissao       : in   std_logic;
         partidaTransmissao      : out  std_logic;
         dadoTransmitido         : out  std_logic_vector(6 downto 0);
-        transmissaoAndamento    : out  std_logic);
+        transmissaoAndamento    : out  std_logic;
+        estadoTransmissao       : out  std_logic_vector(2 downto 0));
 end unidade_controle_transmissao;
 
 architecture unidade_controle of unidade_controle_transmissao is
@@ -32,7 +33,7 @@ begin
         end if;
 
       when transmissao =>    -- Envia o que estiver na entrada de dados
-        if pronto = '1' then
+        if prontoTransmissao = '1' then
           estado <= final;
         end if;
 
@@ -49,14 +50,17 @@ begin
   begin
     case estado is
       when inicial =>
+        estadoTransmissao <= "000";
         transmissaoAndamento <= '0';
         partidaTransmissao <= '0';
         dadoTransmitido <= (others => '1');
       when transmissao =>
+        estadoTransmissao <= "001";
         transmissaoAndamento <= '1';
         partidaTransmissao <= '1';
         dadoTransmitido <= dadoTransmissao;
       when final =>
+        estadoTransmissao <= "010";
         transmissaoAndamento <= '0';
         partidaTransmissao <= '0';
         dadoTransmitido <= (others => '1');
