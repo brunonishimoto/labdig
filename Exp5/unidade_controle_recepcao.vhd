@@ -10,11 +10,12 @@ entity unidade_controle_recepcao is
         recebeDado      : in   std_logic;
         zeraRegistrador : out  std_logic; -- zera registrador que armazena o sinal
         registraDado    : out  std_logic; -- controla registro do sinal recebido
-        temDadoRecepcao : out  std_logic);
+        temDadoRecepcao : out  std_logic;
+        estadoRecepcao  : out  std_logic_vector(2 downto 0));
 end unidade_controle_recepcao;
 
 architecture unidade_controle of unidade_controle_recepcao is
-type tipo_estado is (inicial, recepcao, registra, preparacao);
+type tipo_estado is (inicial, recepcao, registra, preparacao, final);
 signal estado   : tipo_estado;
 
 begin
@@ -35,12 +36,17 @@ begin
         estado <= recepcao;
 
       when recepcao =>   -- Espera receber o sinal do final
-        if pronto = '1' then
-          estado <= registra';
+        if prontoRecepcao = '1' then
+          estado <= registra;
         end if;
 
       when registra =>   -- Registra os dados recebidos
-        estado <= inicial;
+        estado <= final;
+
+      when final =>      -- Aguarda desativação do sinal de inicio
+        if recebeDado = '0' then
+          estado <= inicial;
+        end if;
 
       end case;
     end if;
@@ -50,21 +56,30 @@ begin
   begin
     case estado is
       when inicial =>
-        temDadoRecepcao <= '0';
+        estadoRecepcao <= "000";
+        temDadoRecepcao <= '1';
         zeraRegistrador <= '0';
         registraDado <= '0';
       when preparacao =>
+        estadoRecepcao <= "001";
         temDadoRecepcao <= '0';
         zeraRegistrador <= '1';
         registraDado <= '0';
       when recepcao =>
+        estadoRecepcao <= "010";
+        temDadoRecepcao <= '0';
+        zeraRegistrador <= '0';
+        registraDado <= '0';
+      when registra =>
+        estadoRecepcao <= "011";
         temDadoRecepcao <= '1';
         zeraRegistrador <= '0';
         registraDado <= '1';
-      when registra =>
-        temDadoRecepcao <= '0';
+      when final =>
+        estadoRecepcao <= "100";
+        temDadoRecepcao <= '1';
         zeraRegistrador <= '0';
-        registraDado <= '1';
+        registraDado <= '0';
     end case;
    end process;
 end unidade_controle;
