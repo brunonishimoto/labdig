@@ -1,14 +1,14 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off interface -c interface --vector_source="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp5/Interface.vwf" --testbench_file="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp5/simulation/qsim/Interface.vwf.vht"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off interface -c interface --vector_source="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp5/Interface.vwf" --testbench_file="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp5/simulation/qsim/Interface.vwf.vht"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp5/simulation/qsim/" interface -c interface</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/jpedr/Desktop/Projetos/LabDig2/Lab-Dig-II/Exp5/simulation/qsim/" interface -c interface</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off uart -c uart --vector_source="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp5/Interface.vwf" --testbench_file="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp5/simulation/qsim/Interface.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off uart -c uart --vector_source="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp5/Interface.vwf" --testbench_file="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp5/simulation/qsim/Interface.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp5/simulation/qsim/" uart -c uart</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/intelFPGA_lite/16.1/Lab-Dig-II/Exp5/simulation/qsim/" uart -c uart</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
-vcom -work work interface.vho
+vcom -work work uart.vho
 vcom -work work Interface.vwf.vht
 vsim -novopt -c -t 1ps -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.interface_vhd_vec_tst
-vcd file -direction interface.msim.vcd
+vcd file -direction uart.msim.vcd
 vcd add -internal interface_vhd_vec_tst/*
 vcd add -internal interface_vhd_vec_tst/i1/*
 proc simTimestamp {} {
@@ -20,14 +20,13 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
-
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
-vcom -work work interface.vho
+vcom -work work uart.vho
 vcom -work work Interface.vwf.vht
-vsim -novopt -c -t 1ps -sdfmax interface_vhd_vec_tst/i1=interface_vhd.sdo -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.interface_vhd_vec_tst
-vcd file -direction interface.msim.vcd
+vsim -novopt -c -t 1ps -sdfmax interface_vhd_vec_tst/i1=uart_vhd.sdo -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.interface_vhd_vec_tst
+vcd file -direction uart.msim.vcd
 vcd add -internal interface_vhd_vec_tst/*
 vcd add -internal interface_vhd_vec_tst/i1/*
 proc simTimestamp {} {
@@ -39,7 +38,6 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
-
 </modelsim_script_timing>
 <hdl_lang>vhdl</hdl_lang>
 </simulation_settings>*/

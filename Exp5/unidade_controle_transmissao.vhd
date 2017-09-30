@@ -4,15 +4,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity unidade_controle_transmissao is
-   port(clock                   : in   std_logic;
-        reset                   : in   std_logic;
-        dadoTransmissao         : in   std_logic_vector(6 downto 0);
-        transmiteDado           : in   std_logic;
-        prontoTransmissao       : in   std_logic;
-        partidaTransmissao      : out  std_logic;
-        dadoTransmitido         : out  std_logic_vector(6 downto 0);
-        transmissaoAndamento    : out  std_logic;
-        estadoTransmissao       : out  std_logic_vector(2 downto 0));
+   port(clock               : in  std_logic;
+        reset               : in  std_logic;
+        transmiteDado       : in  std_logic;
+        prontoTransmissao   : in  std_logic;
+        partidaTransmissao  : out std_logic;
+        transmissaoAndamento: out std_logic;
+        zeraRegistrador     : out std_logic;
+        estadoTransmissao   : out std_logic_vector(1 downto 0));
 end unidade_controle_transmissao;
 
 architecture unidade_controle of unidade_controle_transmissao is
@@ -50,20 +49,20 @@ begin
   begin
     case estado is
       when inicial =>
-        estadoTransmissao <= "000";
+        estadoTransmissao <= "00";
         transmissaoAndamento <= '0';
         partidaTransmissao <= '0';
-        dadoTransmitido <= (others => '1');
+        zeraRegistrador <= '0';
       when transmissao =>
-        estadoTransmissao <= "001";
+        estadoTransmissao <= "01";
         transmissaoAndamento <= '1';
         partidaTransmissao <= '1';
-        dadoTransmitido <= dadoTransmissao;
+        zeraRegistrador <= '0';
       when final =>
-        estadoTransmissao <= "010";
+        estadoTransmissao <= "10";
         transmissaoAndamento <= '0';
         partidaTransmissao <= '0';
-        dadoTransmitido <= (others => '1');
+        zeraRegistrador <= '1';
     end case;
    end process;
 end unidade_controle;

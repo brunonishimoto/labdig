@@ -34,39 +34,55 @@ architecture interface of interface is
          prontoRecepcao  : in   std_logic;
          recebeDado      : in   std_logic;
          zeraRegistrador : out  std_logic; -- zera registrador que armazena o sinal
-         registraDado    : out  std_logic; -- controla registro do sinal recebido
          temDadoRecepcao : out  std_logic;
-         estadoRecepcao  : out  std_logic_vector(2 downto 0));
+         estadoRecepcao  : out  std_logic_vector(2 downto 0)); -- sinal de depuração
   end component;
 
   component unidade_controle_transmissao is
-    port(clock                   : in   std_logic;
-         reset                   : in   std_logic;
-         dadoTransmissao         : in   std_logic_vector(6 downto 0);
-         transmiteDado           : in   std_logic;
-         prontoTransmissao       : in   std_logic;
-         partidaTransmissao      : out  std_logic;
-         dadoTransmitido         : out  std_logic_vector(6 downto 0);
-         transmissaoAndamento    : out  std_logic;
-         estadoTransmissao       : out  std_logic_vector(2 downto 0));
+    port(clock               : in  std_logic;
+         reset               : in  std_logic;
+         transmiteDado       : in  std_logic;
+         prontoTransmissao   : in  std_logic;
+         partidaTransmissao  : out std_logic;
+         transmissaoAndamento: out std_logic;
+         zeraRegistrador     : out std_logic;
+         estadoTransmissao   : out std_logic_vector(1 downto 0)); --sinal de depuracao
   end component;
 
-  component registrador is
-    port(clock            : in  std_logic;
-         reset            : in  std_logic;
-         enableRegistro   : in  std_logic;
-         dadoRecebido     : in  std_logic_vector(6 downto 0);
-         dadoRecepcao     : out std_logic_vector(6 downto 0));
+  component fluxo_dados_recepcao is
+    port(clock          : in std_logic;
+         reset          : in std_logic;
+         temDadoRecepcao: in std_logic;
+         zeraRegistrador: in std_logic;
+         dadoRecebido   : in std_logic_vector(6 downto 0);
+         dadoRecepcao   : out std_logic_vector(6 downto 0));
   end component;
 
-signal zeraRegistrador : std_logic;
-signal registraDado    : std_logic;
+  component fluxo_dados_transmissao is
+    port(clock               : in std_logic;
+         reset               : in std_logic;
+         transmissaoAndamento: in std_logic;
+         zeraRegistrador     : in std_logic;
+         dadoTransmissao     : in std_logic_vector(6 downto 0);
+         dadoTransmitido     : out std_logic_vector(6 downto 0));
+  end component;
+
+signal s_zeraRegistradorRecepcao: std_logic;
+signal s_zeraRegistradorTransmissao: std_logic;
+signal s_temDadoRecepcao: std_logic;
+signal s_transmissaoAndamento: std_logic;
 
 begin
 
-  uc_recepcao : unidade_controle_recepcao port map (clock, reset, prontoRecepcao, recebeDado, zeraRegistrador, registraDado, temDadoRecepcao, estadoRecepcao);
-  uc_transmissao : unidade_controle_transmissao port map (clock, reset, dadoTransmissao, transmiteDado, prontoTransmissao, partidaTransmissao, dadoTransmitido, transmissaoAndamento, estadoTransmissao);
+  uc_recepcao: unidade_controle_recepcao port map (clock, reset, prontoRecepcao, recebeDado, s_zeraRegistradorRecepcao, 
+                                                   s_temDadoRecepcao, estadoRecepcao);
+  uc_transmissao: unidade_controle_transmissao port map (clock, reset, transmiteDado, prontoTransmissao, partidaTransmissao,
+                                                         s_transmissaoAndamento, s_zeraRegistradorTransmissao, estadoTransmissao);
 
-  fd_recepcao    : registrador port map (clock, reset or zeraRegistrador, registraDado, dadoRecebido, dadoRecepcao);
+  fd_recepcao: fluxo_dados_recepcao port map (clock, reset, s_temDadoRecepcao, s_zeraRegistradorRecepcao, dadoRecebido, dadoRecepcao);
+  fd_transmissao: fluxo_dados_transmissao port map (clock, reset, s_transmissaoAndamento, s_zeraRegistradorTransmissao, dadoTransmissao, dadoTransmitido);
+
+  temDadoRecepcao <= s_temDadoRecepcao;
+  transmissaoAndamento <= s_transmissaoAndamento;
 
 end interface;

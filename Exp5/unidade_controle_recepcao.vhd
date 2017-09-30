@@ -4,18 +4,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity unidade_controle_recepcao is
-   port(clock           : in   std_logic;
-        reset           : in   std_logic;
-        prontoRecepcao  : in   std_logic;
-        recebeDado      : in   std_logic;
-        zeraRegistrador : out  std_logic; -- zera registrador que armazena o sinal
-        registraDado    : out  std_logic; -- controla registro do sinal recebido
-        temDadoRecepcao : out  std_logic;
-        estadoRecepcao  : out  std_logic_vector(2 downto 0));
+  port(clock           : in   std_logic;
+       reset           : in   std_logic;
+       prontoRecepcao  : in   std_logic;
+       recebeDado      : in   std_logic;
+       zeraRegistrador : out  std_logic; -- zera registrador que armazena o sinal
+       temDadoRecepcao : out  std_logic;
+       estadoRecepcao  : out  std_logic_vector(1 downto 0)); --sinal de depuração
 end unidade_controle_recepcao;
 
 architecture unidade_controle of unidade_controle_recepcao is
-type tipo_estado is (inicial, recepcao, registra, preparacao, final);
+type tipo_estado is (inicial, recepcao, final);
 signal estado   : tipo_estado;
 
 begin
@@ -28,26 +27,19 @@ begin
     elsif (clock'event and clock = '1') then
       case estado is
       when inicial =>      -- Aguarda sinal de inicio
-        if recebeDado = '1' then
-          estado <= preparacao;
-        end if;
-
-      when preparacao =>         -- Zera circuitos e saidas
-        estado <= recepcao;
-
-      when recepcao =>   -- Espera receber o sinal do final
         if prontoRecepcao = '1' then
-          estado <= registra;
+          estado <= recepcao;
         end if;
 
-      when registra =>   -- Registra os dados recebidos
-        estado <= final;
+      when recepcao =>         -- Exibe dados na saida
+        if recebeDado = '1' then
+          estado <= final;
+        end if;
 
-      when final =>      -- Aguarda desativação do sinal de inicio
+      when final =>      -- Desativa sinais e limpa registrador
         if recebeDado = '0' then
           estado <= inicial;
         end if;
-
       end case;
     end if;
   end process;
@@ -56,30 +48,17 @@ begin
   begin
     case estado is
       when inicial =>
-        estadoRecepcao <= "000";
-        temDadoRecepcao <= '1';
-        zeraRegistrador <= '0';
-        registraDado <= '0';
-      when preparacao =>
-        estadoRecepcao <= "001";
+        estadoRecepcao <= "00";
         temDadoRecepcao <= '0';
-        zeraRegistrador <= '1';
-        registraDado <= '0';
+        zeraRegistrador <= '0';
       when recepcao =>
-        estadoRecepcao <= "010";
-        temDadoRecepcao <= '0';
-        zeraRegistrador <= '0';
-        registraDado <= '0';
-      when registra =>
-        estadoRecepcao <= "011";
+        estadoRecepcao <= "01";
         temDadoRecepcao <= '1';
         zeraRegistrador <= '0';
-        registraDado <= '1';
       when final =>
-        estadoRecepcao <= "100";
+        estadoRecepcao <= "10";
         temDadoRecepcao <= '1';
-        zeraRegistrador <= '0';
-        registraDado <= '0';
+        zeraRegistrador <= '1';
     end case;
    end process;
 end unidade_controle;
