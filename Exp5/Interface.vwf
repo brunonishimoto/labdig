@@ -20,6 +20,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
@@ -38,6 +39,7 @@ proc simTimestamp {} {
 after 2500 simTimestamp
 run -all
 quit -f
+
 </modelsim_script_timing>
 <hdl_lang>vhdl</hdl_lang>
 </simulation_settings>*/
@@ -406,6 +408,76 @@ SIGNAL("dadoTransmitido[0]")
 	PARENT = "dadoTransmitido";
 }
 
+SIGNAL("estadoRecepcao")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = BUS;
+	WIDTH = 2;
+	LSB_INDEX = 0;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("estadoRecepcao[1]")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "estadoRecepcao";
+}
+
+SIGNAL("estadoRecepcao[0]")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "estadoRecepcao";
+}
+
+SIGNAL("estadoTransmissao")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = BUS;
+	WIDTH = 2;
+	LSB_INDEX = 0;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("estadoTransmissao[1]")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "estadoTransmissao";
+}
+
+SIGNAL("estadoTransmissao[0]")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "estadoTransmissao";
+}
+
+SIGNAL("paridadeOk")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
 SIGNAL("partidaTransmissao")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
@@ -486,86 +558,6 @@ SIGNAL("transmiteDado")
 	PARENT = "";
 }
 
-SIGNAL("estadoTransmissao")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = BUS;
-	WIDTH = 3;
-	LSB_INDEX = 0;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("estadoTransmissao[2]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoTransmissao";
-}
-
-SIGNAL("estadoTransmissao[1]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoTransmissao";
-}
-
-SIGNAL("estadoTransmissao[0]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoTransmissao";
-}
-
-SIGNAL("estadoRecepcao")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = BUS;
-	WIDTH = 3;
-	LSB_INDEX = 0;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("estadoRecepcao[2]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcao";
-}
-
-SIGNAL("estadoRecepcao[1]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcao";
-}
-
-SIGNAL("estadoRecepcao[0]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcao";
-}
-
 TRANSITION_LIST("clock")
 {
 	NODE
@@ -594,7 +586,7 @@ TRANSITION_LIST("dadoRecebido[5]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -612,7 +604,7 @@ TRANSITION_LIST("dadoRecebido[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -630,7 +622,7 @@ TRANSITION_LIST("dadoRecebido[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -639,7 +631,7 @@ TRANSITION_LIST("dadoRecebido[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -711,7 +703,7 @@ TRANSITION_LIST("dadoTransmissao[6]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -738,7 +730,7 @@ TRANSITION_LIST("dadoTransmissao[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -747,7 +739,7 @@ TRANSITION_LIST("dadoTransmissao[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -765,7 +757,7 @@ TRANSITION_LIST("dadoTransmissao[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -832,7 +824,7 @@ TRANSITION_LIST("dadoTransmitido[0]")
 	}
 }
 
-TRANSITION_LIST("partidaTransmissao")
+TRANSITION_LIST("estadoRecepcao[1]")
 {
 	NODE
 	{
@@ -841,87 +833,7 @@ TRANSITION_LIST("partidaTransmissao")
 	}
 }
 
-TRANSITION_LIST("prontoRecepcao")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 900.0;
-	}
-}
-
-TRANSITION_LIST("prontoTransmissao")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 900.0;
-	}
-}
-
-TRANSITION_LIST("recebeDado")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 30.0;
-		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 10.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 900.0;
-	}
-}
-
-TRANSITION_LIST("reset")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 1 FOR 20.0;
-		LEVEL 0 FOR 980.0;
-	}
-}
-
-TRANSITION_LIST("temDadoRecepcao")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("transmissaoAndamento")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("transmiteDado")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 10.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 10.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 900.0;
-	}
-}
-
-TRANSITION_LIST("estadoTransmissao[2]")
+TRANSITION_LIST("estadoRecepcao[0]")
 {
 	NODE
 	{
@@ -948,7 +860,18 @@ TRANSITION_LIST("estadoTransmissao[0]")
 	}
 }
 
-TRANSITION_LIST("estadoRecepcao[2]")
+TRANSITION_LIST("paridadeOk")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 870.0;
+	}
+}
+
+TRANSITION_LIST("partidaTransmissao")
 {
 	NODE
 	{
@@ -957,7 +880,46 @@ TRANSITION_LIST("estadoRecepcao[2]")
 	}
 }
 
-TRANSITION_LIST("estadoRecepcao[1]")
+TRANSITION_LIST("prontoRecepcao")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 870.0;
+	}
+}
+
+TRANSITION_LIST("prontoTransmissao")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("recebeDado")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("reset")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("temDadoRecepcao")
 {
 	NODE
 	{
@@ -966,12 +928,21 @@ TRANSITION_LIST("estadoRecepcao[1]")
 	}
 }
 
-TRANSITION_LIST("estadoRecepcao[0]")
+TRANSITION_LIST("transmissaoAndamento")
 {
 	NODE
 	{
 		REPEAT = 1;
 		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("transmiteDado")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -1004,7 +975,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "recebeDado";
+	CHANNEL = "paridadeOk";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 3;
@@ -1013,12 +984,21 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "dadoRecebido";
+	CHANNEL = "recebeDado";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 4;
 	TREE_LEVEL = 0;
-	CHILDREN = 5, 6, 7, 8, 9, 10, 11;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoRecebido";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 5;
+	TREE_LEVEL = 0;
+	CHILDREN = 6, 7, 8, 9, 10, 11, 12;
 }
 
 DISPLAY_LINE
@@ -1026,9 +1006,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[6]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 5;
+	TREE_INDEX = 6;
 	TREE_LEVEL = 1;
-	PARENT = 4;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1036,9 +1016,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[5]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 6;
+	TREE_INDEX = 7;
 	TREE_LEVEL = 1;
-	PARENT = 4;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1046,9 +1026,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[4]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 7;
+	TREE_INDEX = 8;
 	TREE_LEVEL = 1;
-	PARENT = 4;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1056,9 +1036,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[3]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 8;
+	TREE_INDEX = 9;
 	TREE_LEVEL = 1;
-	PARENT = 4;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1066,9 +1046,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[2]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 9;
+	TREE_INDEX = 10;
 	TREE_LEVEL = 1;
-	PARENT = 4;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1076,9 +1056,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 10;
+	TREE_INDEX = 11;
 	TREE_LEVEL = 1;
-	PARENT = 4;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1086,18 +1066,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoRecebido[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 11;
-	TREE_LEVEL = 1;
-	PARENT = 4;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "temDadoRecepcao";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
 	TREE_INDEX = 12;
-	TREE_LEVEL = 0;
+	TREE_LEVEL = 1;
+	PARENT = 5;
 }
 
 DISPLAY_LINE
@@ -1182,50 +1153,10 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcao";
+	CHANNEL = "temDadoRecepcao";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 21;
-	TREE_LEVEL = 0;
-	CHILDREN = 22, 23, 24;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoRecepcao[2]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 22;
-	TREE_LEVEL = 1;
-	PARENT = 21;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoRecepcao[1]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 23;
-	TREE_LEVEL = 1;
-	PARENT = 21;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoRecepcao[0]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 24;
-	TREE_LEVEL = 1;
-	PARENT = 21;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "prontoTransmissao";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 25;
 	TREE_LEVEL = 0;
 }
 
@@ -1234,7 +1165,16 @@ DISPLAY_LINE
 	CHANNEL = "transmiteDado";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 26;
+	TREE_INDEX = 22;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "prontoTransmissao";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 23;
 	TREE_LEVEL = 0;
 }
 
@@ -1243,9 +1183,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 27;
+	TREE_INDEX = 24;
 	TREE_LEVEL = 0;
-	CHILDREN = 28, 29, 30, 31, 32, 33, 34;
+	CHILDREN = 25, 26, 27, 28, 29, 30, 31;
 }
 
 DISPLAY_LINE
@@ -1253,9 +1193,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[6]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 28;
+	TREE_INDEX = 25;
 	TREE_LEVEL = 1;
-	PARENT = 27;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1263,9 +1203,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[5]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 29;
+	TREE_INDEX = 26;
 	TREE_LEVEL = 1;
-	PARENT = 27;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1273,9 +1213,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[4]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 30;
+	TREE_INDEX = 27;
 	TREE_LEVEL = 1;
-	PARENT = 27;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1283,9 +1223,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[3]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 31;
+	TREE_INDEX = 28;
 	TREE_LEVEL = 1;
-	PARENT = 27;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1293,9 +1233,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[2]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 32;
+	TREE_INDEX = 29;
 	TREE_LEVEL = 1;
-	PARENT = 27;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1303,9 +1243,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 33;
+	TREE_INDEX = 30;
 	TREE_LEVEL = 1;
-	PARENT = 27;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1313,107 +1253,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 34;
+	TREE_INDEX = 31;
 	TREE_LEVEL = 1;
-	PARENT = 27;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 35;
-	TREE_LEVEL = 0;
-	CHILDREN = 36, 37, 38, 39, 40, 41, 42;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[6]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 36;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[5]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 37;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[4]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 38;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[3]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 39;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[2]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 40;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[1]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 41;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmitido[0]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 42;
-	TREE_LEVEL = 1;
-	PARENT = 35;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "partidaTransmissao";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 43;
-	TREE_LEVEL = 0;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "transmissaoAndamento";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 44;
-	TREE_LEVEL = 0;
+	PARENT = 24;
 }
 
 DISPLAY_LINE
@@ -1421,14 +1263,142 @@ DISPLAY_LINE
 	CHANNEL = "estadoTransmissao";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 45;
+	TREE_INDEX = 32;
 	TREE_LEVEL = 0;
-	CHILDREN = 46, 47, 48;
+	CHILDREN = 33, 34;
 }
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoTransmissao[2]";
+	CHANNEL = "estadoTransmissao[1]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 33;
+	TREE_LEVEL = 1;
+	PARENT = 32;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "estadoTransmissao[0]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 34;
+	TREE_LEVEL = 1;
+	PARENT = 32;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "transmissaoAndamento";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 35;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "partidaTransmissao";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 36;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 37;
+	TREE_LEVEL = 0;
+	CHILDREN = 38, 39, 40, 41, 42, 43, 44;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[6]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 38;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[5]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 39;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[4]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 40;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[3]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 41;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[2]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 42;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[1]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 43;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dadoTransmitido[0]";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 44;
+	TREE_LEVEL = 1;
+	PARENT = 37;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "estadoRecepcao";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 45;
+	TREE_LEVEL = 0;
+	CHILDREN = 46, 47;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "estadoRecepcao[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 46;
@@ -1438,20 +1408,10 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoTransmissao[1]";
+	CHANNEL = "estadoRecepcao[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 47;
-	TREE_LEVEL = 1;
-	PARENT = 45;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoTransmissao[0]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 48;
 	TREE_LEVEL = 1;
 	PARENT = 45;
 }
