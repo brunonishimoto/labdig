@@ -258,66 +258,6 @@ SIGNAL("entrada")
 	PARENT = "";
 }
 
-SIGNAL("estadoRecepcao")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = BUS;
-	WIDTH = 2;
-	LSB_INDEX = 0;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("estadoRecepcao[1]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcao";
-}
-
-SIGNAL("estadoRecepcao[0]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcao";
-}
-
-SIGNAL("estadoTransmissao")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = BUS;
-	WIDTH = 2;
-	LSB_INDEX = 0;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("estadoTransmissao[1]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoTransmissao";
-}
-
-SIGNAL("estadoTransmissao[0]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoTransmissao";
-}
-
 SIGNAL("recebeDado")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
@@ -376,56 +316,6 @@ SIGNAL("transmiteDado")
 	LSB_INDEX = -1;
 	DIRECTION = INPUT;
 	PARENT = "";
-}
-
-SIGNAL("estadoRecepcaoSerial")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = BUS;
-	WIDTH = 4;
-	LSB_INDEX = 0;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("estadoRecepcaoSerial[3]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcaoSerial";
-}
-
-SIGNAL("estadoRecepcaoSerial[2]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcaoSerial";
-}
-
-SIGNAL("estadoRecepcaoSerial[1]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcaoSerial";
-}
-
-SIGNAL("estadoRecepcaoSerial[0]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "estadoRecepcaoSerial";
 }
 
 SIGNAL("tickRecepcao")
@@ -540,7 +430,8 @@ TRANSITION_LIST("dadoTransmissao[6]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 840.0;
 	}
 }
 
@@ -558,7 +449,8 @@ TRANSITION_LIST("dadoTransmissao[4]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 840.0;
 	}
 }
 
@@ -576,7 +468,8 @@ TRANSITION_LIST("dadoTransmissao[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 840.0;
 	}
 }
 
@@ -594,7 +487,8 @@ TRANSITION_LIST("dadoTransmissao[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 840.0;
 	}
 }
 
@@ -613,42 +507,6 @@ TRANSITION_LIST("entrada")
 		}
 		LEVEL 1 FOR 50.0;
 		LEVEL 0 FOR 50.0;
-	}
-}
-
-TRANSITION_LIST("estadoRecepcao[1]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("estadoRecepcao[0]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("estadoTransmissao[1]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("estadoTransmissao[0]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
 	}
 }
 
@@ -707,42 +565,6 @@ TRANSITION_LIST("transmiteDado")
 		LEVEL 0 FOR 70.0;
 		LEVEL 1 FOR 50.0;
 		LEVEL 0 FOR 880.0;
-	}
-}
-
-TRANSITION_LIST("estadoRecepcaoSerial[3]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("estadoRecepcaoSerial[2]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("estadoRecepcaoSerial[1]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("estadoRecepcaoSerial[0]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
 	}
 }
 
@@ -918,17 +740,17 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcaoSerial";
-	EXPAND_STATUS = COLLAPSED;
+	CHANNEL = "dadoTransmissao";
+	EXPAND_STATUS = EXPANDED;
 	RADIX = Binary;
 	TREE_INDEX = 15;
 	TREE_LEVEL = 0;
-	CHILDREN = 16, 17, 18, 19;
+	CHILDREN = 16, 17, 18, 19, 20, 21, 22;
 }
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcaoSerial[3]";
+	CHANNEL = "dadoTransmissao[6]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 16;
@@ -938,7 +760,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcaoSerial[2]";
+	CHANNEL = "dadoTransmissao[5]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 17;
@@ -948,7 +770,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcaoSerial[1]";
+	CHANNEL = "dadoTransmissao[4]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 18;
@@ -958,7 +780,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcaoSerial[0]";
+	CHANNEL = "dadoTransmissao[3]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 19;
@@ -968,92 +790,12 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "estadoRecepcao";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 20;
-	TREE_LEVEL = 0;
-	CHILDREN = 21, 22;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoRecepcao[1]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 21;
-	TREE_LEVEL = 1;
-	PARENT = 20;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoRecepcao[0]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 22;
-	TREE_LEVEL = 1;
-	PARENT = 20;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmissao";
-	EXPAND_STATUS = EXPANDED;
-	RADIX = Binary;
-	TREE_INDEX = 23;
-	TREE_LEVEL = 0;
-	CHILDREN = 24, 25, 26, 27, 28, 29, 30;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmissao[6]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 24;
-	TREE_LEVEL = 1;
-	PARENT = 23;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmissao[5]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 25;
-	TREE_LEVEL = 1;
-	PARENT = 23;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmissao[4]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 26;
-	TREE_LEVEL = 1;
-	PARENT = 23;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "dadoTransmissao[3]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 27;
-	TREE_LEVEL = 1;
-	PARENT = 23;
-}
-
-DISPLAY_LINE
-{
 	CHANNEL = "dadoTransmissao[2]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 28;
+	TREE_INDEX = 20;
 	TREE_LEVEL = 1;
-	PARENT = 23;
+	PARENT = 15;
 }
 
 DISPLAY_LINE
@@ -1061,9 +803,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 29;
+	TREE_INDEX = 21;
 	TREE_LEVEL = 1;
-	PARENT = 23;
+	PARENT = 15;
 }
 
 DISPLAY_LINE
@@ -1071,9 +813,9 @@ DISPLAY_LINE
 	CHANNEL = "dadoTransmissao[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 30;
+	TREE_INDEX = 22;
 	TREE_LEVEL = 1;
-	PARENT = 23;
+	PARENT = 15;
 }
 
 DISPLAY_LINE
@@ -1081,7 +823,7 @@ DISPLAY_LINE
 	CHANNEL = "transmiteDado";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 31;
+	TREE_INDEX = 23;
 	TREE_LEVEL = 0;
 }
 
@@ -1090,7 +832,7 @@ DISPLAY_LINE
 	CHANNEL = "saida";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 32;
+	TREE_INDEX = 24;
 	TREE_LEVEL = 0;
 }
 
@@ -1099,38 +841,8 @@ DISPLAY_LINE
 	CHANNEL = "transmissaoAndamento";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 33;
+	TREE_INDEX = 25;
 	TREE_LEVEL = 0;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoTransmissao";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 34;
-	TREE_LEVEL = 0;
-	CHILDREN = 35, 36;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoTransmissao[1]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 35;
-	TREE_LEVEL = 1;
-	PARENT = 34;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "estadoTransmissao[0]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 36;
-	TREE_LEVEL = 1;
-	PARENT = 34;
 }
 
 DISPLAY_LINE
@@ -1138,7 +850,7 @@ DISPLAY_LINE
 	CHANNEL = "tickTransmissao";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 37;
+	TREE_INDEX = 26;
 	TREE_LEVEL = 0;
 }
 
