@@ -4,13 +4,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity transmissao_serial is
-	port(dados_ascii	 : in  std_logic_vector(6 downto 0);
-		  partida		 : in  std_logic;
-		  reset		    : in  std_logic;
-		  clock		    : in  std_logic;
+	port(dados_ascii	: in  std_logic_vector(6 downto 0);
+		  partida		 		: in  std_logic;
+		  reset		    	: in  std_logic;
+		  clock		    	: in  std_logic;
 		  dado_serial   : out std_logic;
-		  registrador	 : out std_logic_vector(11 downto 0);	-- Depuracao
-		  saidas_estado : out std_logic_vector(4 downto 0);	-- Depuracao
+		  registrador	  : out std_logic_vector(11 downto 0);	-- Depuracao
+			saidas_estado : out std_logic_vector(4 downto 0);	-- Depuracao
+			geradorTick		: out std_logic; --Depuracao
 		  pronto		    : out std_logic);
 end transmissao_serial;
 
@@ -59,5 +60,6 @@ begin
 	registrador   <= saida_registrador;
 	saidas_estado <= estado;
 	pronto        <= s_fim;
+	geradorTick	  <= tick;
 
 end transmissao_serial;

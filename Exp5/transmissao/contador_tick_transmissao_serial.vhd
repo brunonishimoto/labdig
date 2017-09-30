@@ -8,7 +8,7 @@ use ieee.numeric_std.all;
 
 entity contador_tick_transmissao_serial is
    generic(
-      M: integer := 50000000     -- modulo do contador
+      M: integer := 10     -- modulo do contador
    );
    port(
       clk, reset: in std_logic;

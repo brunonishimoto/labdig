@@ -47,8 +47,8 @@ architecture uart of uart is
          registrador     : out std_logic_vector(10 downto 0);  -- Depuracao
          saidas_estado   : out std_logic_vector(3 downto 0);  -- Depuracao
          contador_bits   : out std_logic_vector(3 downto 0); --Depuracao
-         display_primeiro: out std_logic_vector(0 to 6); --apresentar display
-         display_segundo : out std_logic_vector(0 to 6); --apresentar display
+         tickStartBit    : out std_logic; --Depuracao
+         tickBit         : out std_logic; --Depuracao
          fim_operacao    : out std_logic);
   end component;
 
@@ -60,6 +60,7 @@ architecture uart of uart is
         dado_serial   : out std_logic;
         registrador	 : out std_logic_vector(11 downto 0);	-- Depuracao
         saidas_estado : out std_logic_vector(4 downto 0);	-- Depuracao
+        geradorTick   : out std_logic; --Depuracao
         pronto		    : out std_logic);
   end component;
 begin

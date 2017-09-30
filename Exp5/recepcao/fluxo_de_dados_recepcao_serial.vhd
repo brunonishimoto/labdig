@@ -12,7 +12,8 @@ entity fluxo_de_dados_recepcao_serial is
 		   paridade_ok  : out std_logic;
 		   dado_ascii	  : out std_logic_vector(6 downto 0);
 		   saidaQ			  : out std_logic_vector(10 downto 0);	--depuracao
-		   contador     : out std_logic_vector(3 downto 0); --depuracao
+			 contador     : out std_logic_vector(3 downto 0); --depuracao
+			 geradorTick  : out std_logic; --depuracao
 		   fim				  : out std_logic);
 end fluxo_de_dados_recepcao_serial;
 
@@ -65,4 +66,5 @@ begin
 
 	saidaQ <= saida_registrador;
 	dado_ascii <= s_ascii;
+	geradorTick <= tick;
 end exemplo;
