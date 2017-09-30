@@ -16,16 +16,16 @@ architecture fluxo_dados of fluxo_dados_recepcao is
 
   component edge_detector is
     port(clock     : in  std_logic;
-         signal_in : in  std_logic;
-         signal_out: out std_logic);
+         signalIn : in  std_logic;
+         signalOut: out std_logic);
   end component;
 
   component registrador is
     port(clock         : in  std_logic;
          reset         : in  std_logic;
          enableRegistro: in  std_logic;
-         dadoRecebido  : in  std_logic_vector(6 downto 0);
-         dadoRecepcao  : out std_logic_vector(6 downto 0));
+         dataIn        : in  std_logic_vector(6 downto 0);
+         dataOut       : out std_logic_vector(6 downto 0));
   end component; 
 
   signal enableRegistrador: std_logic; -- sinal interno do fluxo de dados

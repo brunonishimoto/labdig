@@ -18,8 +18,8 @@ entity interface is
        dadoRecepcao         : out std_logic_vector(6 downto 0);
        temDadoRecepcao      : out  std_logic;
        transmissaoAndamento : out  std_logic;
-       estadoRecepcao       : out  std_logic_vector(2 downto 0);
-       estadoTransmissao    : out  std_logic_vector(2 downto 0));
+       estadoRecepcao       : out  std_logic_vector(1 downto 0);
+       estadoTransmissao    : out  std_logic_vector(1 downto 0));
 end interface;
 -- Criterio Adotado: quando for algo que liga a interface aos modulos
 -- de transmissao e recepcao, o nome esta como dadoTransmitido/Recebido
@@ -35,7 +35,7 @@ architecture interface of interface is
          recebeDado      : in   std_logic;
          zeraRegistrador : out  std_logic; -- zera registrador que armazena o sinal
          temDadoRecepcao : out  std_logic;
-         estadoRecepcao  : out  std_logic_vector(2 downto 0)); -- sinal de depuração
+         estadoRecepcao  : out  std_logic_vector(1 downto 0)); -- sinal de depuração
   end component;
 
   component unidade_controle_transmissao is

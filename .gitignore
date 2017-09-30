@@ -2,5 +2,6 @@
 */incremental_db/
 */output_files/
 */*
+!*/transmissao
 !*/*.vhd
 !*/*.vwf
