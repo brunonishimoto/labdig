@@ -60,9 +60,9 @@ signal tick_start_bit: std_logic;
 begin
 
   unidade_controle : unidade_controle_recepcao_serial port map (clock, dado_serial, fim, reset, tick_start_bit, estado);
-  gerador_tick: tick_start generic map (M => 5) port map (clock, not (dado_serial), tick_start_bit);
+  gerador_tick: tick_start generic map (M => 5) port map (clock, dado_serial, tick_start_bit);
   fluxo_dados : fluxo_de_dados_recepcao_serial   port map (clock, dado_serial, estado(2),estado(3), estado(1),
-                                           paridade, s_ascii, s_registrador, contador_bits, tickBit, fim);
+                                                           paridade, s_ascii, s_registrador, contador_bits, tickBit, fim);
 
   registrador   <= s_registrador;
   saidas_estado <= estado;
