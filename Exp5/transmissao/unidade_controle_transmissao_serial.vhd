@@ -3,15 +3,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity unidade_controle is
+entity unidade_controle_transmissao_serial is
    port(clock  : in  std_logic;
         comeca : in  std_logic;
         fim    : in  std_logic;
         reseta : in  std_logic;
-        estado : out  std_logic_vector(4 downto 0));  -- carrega|zera|desloca|conta|pronto
-end unidade_controle;
+        saida  : out  std_logic_vector(4 downto 0));  -- carrega|zera|desloca|conta|pronto
+end unidade_controle_transmissao_serial;
 
-architecture unidade_controle of unidade_controle is
+architecture unidade_controle_transmissao_serial of unidade_controle_transmissao_serial is
 type tipo_estado is (inicial, preparacao, transmissao, final, espera);
 signal estado   : tipo_estado;
    
@@ -67,4 +67,4 @@ begin
 				saida <= "00000";
 		end case;
    end process;
-end unidade_controle;
+end unidade_controle_transmissao_serial;

@@ -3,7 +3,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity registrador_deslocamento is
+entity registrador_deslocamento_transmissao_serial is
     port(clock      : in  std_logic; 
          load       : in  std_logic; 
          shift      : in  std_logic;
@@ -11,9 +11,9 @@ entity registrador_deslocamento is
          entrada    : in  std_logic_vector(6 downto 0);
          bit_out    : out std_logic := '1';					
          saida      : out std_logic_vector(11 downto 0));
-end registrador_deslocamento;
+end registrador_deslocamento_transmissao_serial;
 
-architecture exemplo of registrador_deslocamento is
+architecture exemplo of registrador_deslocamento_transmissao_serial is
 signal IQ				: std_logic_vector(11 downto 0);
 signal paridade		: std_logic;
 
@@ -37,9 +37,9 @@ begin
 		
 		if (shift = '1' and tick = '1') then 
 			bit_out <= IQ(0);
-			IQ <= '0'' & IQ(11 downto 1);
+			IQ <= '0' & IQ(11 downto 1);
 		end if;
-    end if;
+  end if;
     
     saida <= IQ;     
 	end process;

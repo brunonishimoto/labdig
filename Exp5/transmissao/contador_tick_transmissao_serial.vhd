@@ -1,4 +1,4 @@
--- contador_tick.vhd
+-- contador_tick_transmissao_serial.vhd
 -- gerador de tick usando contador modulo-M
 -- codigo baseado no livro de Pong Chu - "FPGA Prototyping by VHDL Examples"
 -- Listing 4.11
@@ -6,7 +6,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity contador_tick is
+entity contador_tick_transmissao_serial is
    generic(
       M: integer := 50000000     -- modulo do contador
    );
@@ -14,9 +14,9 @@ entity contador_tick is
       clk, reset: in std_logic;
       tick: out std_logic
    );
-end contador_tick;
+end contador_tick_transmissao_serial;
 
-architecture arch of contador_tick is
+architecture arch of contador_tick_transmissao_serial is
    signal contagem, prox_contagem: integer;
 begin
    -- registrador

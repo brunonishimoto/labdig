@@ -3,7 +3,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity fluxo_de_dados is
+entity fluxo_de_dados_transmissao_serial is
 	port(dados_ascii: in  std_logic_vector(6 downto 0);
 		   carrega    : in  std_logic;
 		   desloca    : in  std_logic;
@@ -14,11 +14,11 @@ entity fluxo_de_dados is
 		   dado_serial: out std_logic;
 		   saidaQ     : out std_logic_vector(11 downto 0);
 		   fim        : out std_logic);
-end fluxo_de_dados;
+end fluxo_de_dados_transmissao_serial;
 
-architecture fluxo_dados of fluxo_de_dados is
+architecture fluxo_dados of fluxo_de_dados_transmissao_serial is
 
-	component registrador_deslocamento is 
+	component registrador_deslocamento_transmissao_serial is 
 		port(clock      : in  std_logic; 
 			   load       : in  std_logic; 
 				 shift      : in  std_logic;
@@ -28,7 +28,7 @@ architecture fluxo_dados of fluxo_de_dados is
 			   saida      : out std_logic_vector(11 downto 0));
 	end component;
 		
-	component contador is
+	component contador_bits_transmissao_serial is
 		port(clock     : in  std_logic;
 			   zera      : in  std_logic;
 			 	 conta     : in  std_logic;
@@ -41,8 +41,8 @@ signal saida_registrador : std_logic_vector(11 downto 0);
 signal contagem : std_logic_vector(3 downto 0);
 
 begin 
-	registrador : registrador_deslocamento port map (clock, carrega, desloca, tick, dados_ascii, dado_serial, saida_registrador);
-	contador : contador port map (clock, zera, conta, tick, contagem, fim);
+	registrador : registrador_deslocamento_transmissao_serial port map (clock, carrega, desloca, tick, dados_ascii, dado_serial, saida_registrador);
+	contador : contador_bits_transmissao_serial port map (clock, zera, conta, tick, contagem, fim);
 	
 	saidaQ <= saida_registrador;	
 end fluxo_dados;

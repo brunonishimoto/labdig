@@ -3,7 +3,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity registrador_deslocamento is
+entity registrador_deslocamento_recepcao_serial is
     port(clock      : in  std_logic; 
          clear      : in  std_logic; 
          shift      : in  std_logic;
@@ -12,9 +12,9 @@ entity registrador_deslocamento is
 				 paridade   : out std_logic;
 				 data_ascii : out std_logic_vector(6 downto 0);
          saida      : out std_logic_vector(10 downto 0));
-end registrador_deslocamento;
+end registrador_deslocamento_recepcao_serial;
 
-architecture registrdor of registrador_deslocamento is
+architecture registrdor of registrador_deslocamento_recepcao_serial is
 signal IQ: std_logic_vector(10 downto 0) := "00000000000";
 
 begin
