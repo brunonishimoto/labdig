@@ -16,7 +16,17 @@ entity uart is
        startTickRecepcao   : out std_logic; --depuracao
        tickRecepcao        : out std_logic; --depuracao
        tickTransmissao     : out std_logic; --depuracao
-       dadoRecepcao        : out std_logic_vector(6 downto 0));
+       estadoTransInter    : out std_logic_vector(1 downto 0); --depuracao
+       estadoRecepInter    : out std_logic_vector(1 downto 0); --depuracao
+		 prontoTransmissao	: out std_logic; --depuracao
+		 prontoRecepcao		: out std_logic; --depuracao
+		 paridadeOk				: out std_logic; --depuracao
+		 estadoTransSerial	: out std_logic_vector(4 downto 0); --depuracao
+		 estadoRecepSerial	: out std_logic_vector(3 downto 0); --depuracao
+		 registradorRecepcao	: out std_logic_vector(10 downto 0); --depuracao
+       dadoRecepcao        : out std_logic_vector(6 downto 0);
+       displayUnidade      : out std_logic_vector(6 downto 0);
+       displayDezena       : out std_logic_vector(6 downto 0));
 end uart;
 
 architecture uart of uart is
@@ -49,8 +59,7 @@ architecture uart of uart is
          registrador  : out std_logic_vector(10 downto 0); -- Depuracao
          saidas_estado: out std_logic_vector(3 downto 0);  -- Depuracao
          contador_bits: out std_logic_vector(3 downto 0);  --Depuracao
-         tickStartBit : out std_logic; --Depuracao
-         tickBit      : out std_logic; --Depuracao
+         tick         : out std_logic; --Depuracao
          fim_operacao : out std_logic);
   end component;
 
@@ -66,22 +75,39 @@ architecture uart of uart is
         pronto       : out std_logic);
   end component;
 
+  component hex_7seg_en is
+    port (
+      hex   : in std_logic_vector (3 downto 0);
+      enable: in std_logic;
+      d7seg : out std_logic_vector (6 downto 0)
+    );
+  end component;
+
   signal s_dadoRecebido      : std_logic_vector(6 downto 0);
-  signal s_dadoTransmitido  : std_logic_vector(6 downto 0);
+  signal s_dadoTransmitido   : std_logic_vector(6 downto 0);
   signal s_paridadeOk        : std_logic;
   signal s_prontoRecepcao    : std_logic;
   signal s_prontoTransmissao : std_logic;
   signal s_partidaTransmissao: std_logic;
-  
+  signal s_dadoRecepcao      : std_logic_vector(6 downto 0);
+  signal s_temDadoRecepcao   : std_logic;
 
 begin
 
   interfaceModule: interface port map(clock, reset, s_dadoRecebido, s_prontoRecepcao, s_paridadeOk, s_prontoTransmissao, recebeDado,
-                                      transmiteDado, dadoTransmissao, s_partidaTransmissao, s_dadoTransmitido, dadoRecepcao, temDadoRecepcao,
-                                      transmissaoAndamento, open, open);
+                                      transmiteDado, dadoTransmissao, s_partidaTransmissao, s_dadoTransmitido, s_dadoRecepcao, s_temDadoRecepcao,
+                                      transmissaoAndamento, estadoRecepInter, estadoTransInter);
   
-  transmisssaModule: transmissao_serial port map(s_dadoTransmitido, s_partidaTransmissao, reset, clock, saida, open, open, tickTransmissao, s_prontoTransmissao);
+  transmisssaModule: transmissao_serial port map(s_dadoTransmitido, s_partidaTransmissao, reset, clock, saida, open, estadoTransSerial, tickTransmissao, s_prontoTransmissao);
 
-  recepcaoModule: recepcao_serial port map(entrada, reset, clock, s_paridadeOk, s_dadoRecebido, open, open, open, startTickRecepcao, tickRecepcao, s_prontoRecepcao);
+  recepcaoModule: recepcao_serial port map(entrada, reset, clock, s_paridadeOk, s_dadoRecebido, registradorRecepcao, estadoRecepSerial, open, tickRecepcao, s_prontoRecepcao);
 
+  display_unidade: hex_7seg_en port map (s_dadoRecepcao(3 downto 0), s_temDadoRecepcao and not (recebeDado), displayUnidade);
+  display_dezena: hex_7seg_en port map ('0' & s_dadoRecepcao(6 downto 4), s_temDadoRecepcao and not (recebeDado), displayDezena);
+
+  temDadoRecepcao <= s_temDadoRecepcao;
+  prontoTransmissao <= s_prontoTransmissao;
+  paridadeOk <= s_paridadeOk;
+  prontoRecepcao <= s_prontoRecepcao;
+  dadoRecepcao <= s_dadoRecepcao;
 end uart ;
