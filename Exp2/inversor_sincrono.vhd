@@ -6,7 +6,7 @@ use ieee.std_logic_arith.all;
 
 entity inversor_sincrono is
     port(clock   : in  std_logic;
-			desativa: in  std_logic;
+				 desativa: in  std_logic;
          saida   : out std_logic := '0');
 end inversor_sincrono;
 

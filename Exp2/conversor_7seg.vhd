@@ -5,7 +5,7 @@ entity conversor_7seg is
 	port (
 		number : in std_logic_vector(3 downto 0);
 		enable : in std_logic;
-		display : out std_logic_vector(0 to 6));
+		display: out std_logic_vector(0 to 6));
 end conversor_7seg;
 
 architecture conversor_7seg_arch of conversor_7seg is

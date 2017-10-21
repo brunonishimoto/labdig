@@ -3,16 +3,16 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity unidade_controle is
+entity unidade_controle_recepcao_serial is
    port(clock    : in  std_logic;
         comeca   : in  std_logic;
         fim      : in  std_logic;
 				reseta   : in  std_logic;
 				tickStart: in  std_logic;	--tick do start bit (precisamos para )
         saida    : out std_logic_vector(3 downto 0));  -- zera|desloca|conta|pronto
-end unidade_controle;
+end unidade_controle_recepcao_serial;
 
-architecture exemplo of unidade_controle is
+architecture exemplo of unidade_controle_recepcao_serial is
 type tipo_estado is (inicial, preparacao, recepcao, final);
 signal estado   : tipo_estado;
    
@@ -31,7 +31,7 @@ begin
 				end if;
 
 			when preparacao =>		-- Zera contador e carrega bit no registrador
-				if tick = '1' then
+				if tickStart = '1' then
 					estado <= recepcao;
 				end if;
                
