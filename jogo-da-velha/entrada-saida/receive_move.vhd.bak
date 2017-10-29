@@ -1,0 +1,65 @@
+-- receive the move that player didc
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity receive_move is
+  port(clock : in std_logic;
+       enable: in std_logic;
+       player: in std_logic;
+       char  : in std_logic_vector(6 downto 0));
+end receive_move;
+
+architecture receive_move of receive_move is
+
+  component board is
+    port (clock  : in  std_logic;
+          write  : in  std_logic;
+          address: in  std_logic_vector(5 downto 0);
+          dataIn : in  std_logic_vector(6 downto 0);
+          dataOut: out std_logic_vector(6 downto 0));
+  end component;
+
+  signal address: std_logic_vector(5 downto 0);
+  signal symbol : std_logic_vector(6 downto 0);
+
+  begin
+    process (char) -- map the move received to the address of memory
+    begin
+      case char is 
+        when "1010001" | "1110001" => -- receive Q or q
+          address <= "000001";
+        when "1010111" | "1110111" => -- receive W or w
+          address <= "000101";
+        when "1000101" | "1100101" => -- receive E or e
+          address <= "001001";
+        when "1000001" | "1100001" => -- receive A or a
+          address <= "010111";
+        when "1010011" | "1110011" => -- receive S or s
+          address <= "011011";
+        when "1000100" | "1100100" => -- receive D or d
+          address <= "011111";
+        when "1011010" | "1111010" => -- receive Z or z
+          address <= "101101";
+        when "1011000" | "1111000" => -- receive X or x
+          address <= "110001";
+        when "1000011" | "1100011" => -- receive C or c
+          address <= "110101";
+        when other =>
+          address <= "111111";
+      end case;
+    end process;
+
+    process (player) --map the palyer with the corresponding symbol (player 0 -> X and player 1 -> O)
+    begin
+      case player is
+        when 0 => -- player 0
+          symbol <= "1011000";
+        when 1 => -- player 1
+          symbol <= "1001111";
+      end case;
+    end process;
+
+    memory_board: board port map (clock, enable, address, symbol, open);
+
+end receive_move;

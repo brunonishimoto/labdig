@@ -1,0 +1,39 @@
+-- VHDL for message 
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity out_of_range_move_message is
+  port (clock       : in  std_logic;
+        read        : in  std_logic;
+        address     : in  std_logic_vector(5 downto 0);
+        dataOut     : out std_logic_vector(6 downto 0));
+end out_of_range_move_message;
+
+architecture out_of_range_move_message of out_of_range_move_message is
+
+  type memory is array (0 to 59) of std_logic_vector(6 downto 0);
+  54 65 63 6C 61 20 69 6E 76 61 6C 69 64 61 2E 20 55 74 69 6C 69 7A 65 20 73 6F 6D 65 6E 74 65 20 51 2C 20 57 2C 20 45 2C 20 41 2C 20 53 2C 20 44 2C 20 5A 2C 20 58 20 6F 75 20 43
+  signal out_of_range_move_mem: memory := ( x"54", x"65", x"63", x"6C", x"61", x"20", x"69", x"6E", x"76", x"61",
+                                            x"6C", x"69", x"64", x"61", x"2E", x"20", x"55", x"74", x"69", x"6C",
+                                            x"69", x"7A", x"65", x"20", x"73", x"6F", x"6D", x"65", x"6E", x"74",
+                                            x"65", x"20", x"51", x"2C", x"20", x"57", x"2C", x"20", x"45", x"2C",
+                                            x"20", x"41", x"2C", x"20", x"53", x"2C", x"20", x"44", x"2C", x"20",
+                                            x"5A", x"2C", x"20", x"58", x"20", x"6F", x"75", x"20", x"43", x"2E");
+                                            --Tecla invalida. Utilize somente Q, W, E, A, S, D, Z, X ou C.
+begin
+ 
+  process (clock)
+  begin
+    
+  if (clock'event and clock = '1') then
+
+    if (read = '1') then
+      dataOut <= out_of_range_move_mem(to_integer(unsigned(address)));
+    end if;
+
+  end if;
+  end process;
+
+end out_of_range_move_message;

@@ -4,5 +4,7 @@
 */*
 !*/transmissao
 !*/recepcao
+!*/entrada-saida
+!*/uart
 !*/*.vhd
 !*/*.vwf

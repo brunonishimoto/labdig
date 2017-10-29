@@ -1,0 +1,64 @@
+-- VHDL for fluxo de dados of input/output
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity fluxo_dados_entrada_saida is
+  port(clock       : in std_logic;
+       reset       : in std_logic;
+       readBoard   : in std_logic;
+       writeBoard  : in std_logic;
+       moveReceived: in std_logic_vector(6 downto 0);
+       endDraw     : out std_logic;
+       symbolBoard : out std_logic_vector(6 downto 0));
+end fluxo_dados_entrada_saida;
+
+architecture fd_entrada_saida of fluxo_dados_entrada_saida is
+
+  component board is
+    port (clock  : in  std_logic;
+          reset  : in  std_logic;
+          write  : in  std_logic;
+          address: in  std_logic_vector(5 downto 0);
+          dataIn : in  std_logic_vector(6 downto 0);
+          dataOut: out std_logic_vector(6 downto 0));
+  end component;
+
+  component counter is
+    port(clock     : in  std_logic;
+         clear     : in  std_logic;
+			   count     : in  std_logic;
+         counter   : out std_logic_vector(5 downto 0);
+         end_count : out std_logic);
+  end component;
+
+  component convert_symbol is
+    port(player: in std_logic;
+         symbol: out std_logic_vector(6 downto 0));
+  end component;
+
+  component convert_move is
+    port (char   : in std_logic_vector(6 downto 0);
+          address: out std_logic_vector(5 downto 0));
+  end component;
+
+  component player is 
+  port (changePlayer: in  std_logic;
+        player      : out std_logic := '0');
+  end component;
+
+  signal s_counter: std_logic_vector(5 downto 0);
+  signal s_converted_address: std_logic_vector(5 downto 0);
+  signal s_address: std_logic_vector(5 downto 0);
+  signal s_symbol : std_logic_vector(6 downto 0);
+  signal s_player : std_logic := '0';
+
+  begin
+
+    counter: counter port map (clock, reset, readBoard, s_counter, endDraw);
+    board  : board   port map (clock, reset, writeBoard, s_address, s_symbol, symbolBoard);
+
+    convert_move: convert_move port map (moveReceived, s_converted_address);
+    player      : player port map (writeBoard, s_player);
+    convert_symbol: convert_symbol port map (s_player, s_symbol);
+end fd_entrada_saida;

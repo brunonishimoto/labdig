@@ -1,0 +1,70 @@
+-- VHDL for unidade de controle of input/output
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity unidade_controle_entrada_saida is
+  port(clock      : in  std_logic;
+       reset      : in  std_logic;
+       start      : in  std_logic;
+       endDraw    : in  std_logic;
+       played     : in  std_logic;
+       readBoard : out std_logic;
+       writeBoard: out std_logic);
+end unidade_controle_entrada_saida;
+
+architecture uc_entrada_saida of unidade_controle_entrada_saida is
+  type tipo_estado is (initial, drawBoard, waitMove, registerMove);
+  signal estado: tipo_estado;
+
+  begin 
+    process (clock, reset, estado)
+    begin
+      if (reset = '1') then
+        estado <= inicial;
+      elsif (clock'event and clock = '1') then
+        case estado is 
+          when initial => -- wait for start
+            if (start = '1') then
+              estado <= drawBoard;
+            end if;
+
+          when drawBoard => --draw the board
+            if (end_draw = '1') then
+              estado <= waitMove;
+            end if;
+          
+          when waitMove => --wait for any move
+            if (played = '1') then
+              estado <= registerMove;
+            end if;
+          
+          when regiterMove => -- regiter move received
+            estado <= drawBoard;
+          
+          when others =>
+            estado <= initial;
+        
+        end case;
+      end if;
+    end process;
+
+    process (estado)
+    begin
+      case estado is
+        when initial =>
+          readBoard <= '0';
+          writeBoard <= '0';
+        when drawBoard =>
+          readBoard <= '1';
+          writeBoard <= '0';
+        when waitMove =>
+          readBoard <= '0';
+          writeBoard <= '0';
+        when registerMove =>
+          readBoard <= '0';
+          writeBoard <= '1';
+      end case;
+    end process;
+end  uc_entrada_saida;
+            

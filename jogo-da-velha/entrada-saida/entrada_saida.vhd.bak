@@ -1,0 +1,47 @@
+-- VDHL for entrada_saida of tic-tac-toe game
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity entrada_saida is
+  port (clock       : in  std_logic;
+        reset       : in  std_logic;
+        start       : in  std_logic;
+        played      : in  std_logic;
+        moveReceived: in std_logic_vector(6 downto 0);
+        symbolBoard : out std_logic_vector(6 downto 0));
+end entrada_saida;
+
+architecture entrada_saida of entrada_saida is 
+  component unidade_controle_entrada_saida is
+    port(clock     : in  std_logic;
+         reset     : in  std_logic;
+         start     : in  std_logic;
+         endDraw   : in  std_logic;
+         played    : in  std_logic;
+         readBoard : out std_logic;
+         writeBoard: out std_logic);
+  end component;
+
+  component fluxo_dados_entrada_saida is
+    port(clock       : in std_logic;
+         reset       : in std_logic;
+         readBoard   : in std_logic;
+         writeBoard  : in std_logic;
+         moveReceived: in std_logic_vector(6 downto 0);
+         endDraw     : out std_logic;
+         symbolBoard : out std_logic_vector(6 downto 0);
+         dep_counter : out std_logic_vector(5 downto 0); --depuracao
+         dep_converted_address: out std_logic_vector(5 downto 0) --depuracao
+         dep_address: out std_logic_vector(5 downto 0)); --depuracao
+  end component;
+
+    signal s_writeBoard: std_logic;
+    signal s_readBoard : std_logic;
+    signal s_endDraw   : std_logic;
+
+  begin
+
+    uc: unidade_controle_entrada_saida port map (clock, reset, start, s_endDraw, played, s_readBoard, s_writeBoard);
+    fd: fluxo_dados_entrada_saida port map (clock, reset, s_readBoard, s_writeBoard, moveReceived, s_endDraw, symbolBoard, open, open, open);
+end  entrada_saida;
