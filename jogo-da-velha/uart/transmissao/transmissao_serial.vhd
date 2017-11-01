@@ -55,7 +55,7 @@ begin
 	
 	uc : unidade_controle_transmissao_serial port map (clock, partida, s_fim, reset, estado);
 	fd : fluxo_de_dados_transmissao_serial   port map (dados_ascii, estado(4), estado(2), estado(3), estado(1), clock, tick, dado_serial, saida_registrador, s_fim);
-	gerador_tick : contador_tick_transmissao_serial generic map (M => 5) port map (clock, estado(4), tick);
+	gerador_tick : contador_tick_transmissao_serial generic map (M => 50000000/110) port map (clock, estado(4), tick);
 				
 	registrador   <= saida_registrador;
 	saidas_estado <= estado;

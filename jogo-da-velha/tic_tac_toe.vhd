@@ -16,6 +16,7 @@ entity tic_tac_toe is
         endReception   : out std_logic; --depuracao
         writeBoard     : out std_logic; --depuracao
         clearScreen    : out std_logic; --depuracao
+		    endOutOfRange  : out std_logic; --depuracao
         symbol         : out std_logic_vector(6 downto 0); -- depuracao
         played         : out std_logic; --depuracao
         stateReception : out std_logic_vector(3 downto 0); --depuracao
@@ -66,6 +67,7 @@ architecture tic_tac_toe of tic_tac_toe is
           validMove      : out std_logic; --depuracao
           outOfRange     : out std_logic; --depuracao
           hasWinner      : out std_logic; --depuracao
+			    endOutOfRange  : out std_logic; --depuracao
           estate         : out std_logic_vector(3 downto 0); --depuracao
           addressToRead  : out std_logic_vector(6 downto 0)); --depuracao
   end component;
@@ -82,7 +84,7 @@ architecture tic_tac_toe of tic_tac_toe is
                               tickTransmissao, open, open, endTransmissao, endReception, open, open, stateReception, open, s_moveReceived, open, open);
     
     comp_entrada_saida: entrada_saida port map (clock, reset, start, s_played, not (s_ongoingTransmission), s_moveReceived,
-                                                s_readBoard, s_clearScreen, s_symbol, writeBoard, open, open, open, estate, addressToRead);
+                                                s_readBoard, s_clearScreen, s_symbol, writeBoard, open, open, open, endOutOfRange, estate, addressToRead);
 
     symbol <= s_symbol;
     readBoard <= s_readBoard;

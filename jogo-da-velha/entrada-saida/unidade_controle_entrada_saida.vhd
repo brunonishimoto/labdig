@@ -48,7 +48,13 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
 
           when drawBoard => --draw the board
             if (endDraw = '1') then
-              estado <= waitMove;
+				  if (hasWinner = '1') then
+				    estado <= winnerMessage;
+				  elsif (endGame = '1') then
+				    estado <= noWinnerMessage;
+				  else
+                estado <= waitMove;
+				  end if;
             end if;
           
           when waitMove => --wait for any move
@@ -71,13 +77,7 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
             end if;
 
           when checkEndGame => --see if there is a winner
-            if (hasWinner = '1') then
-              estado <= winnerMessage;
-            elsif (endGame = '1') then
-              estado <= noWinnerMessage;
-            else
               estado <= clear;
-            end if;
           
           when clear => --clear screen to draw new board
             if (endClear = '1') then
@@ -178,9 +178,9 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
           resetFD <= '0';
           estate <= "0101";
         when invalidMoveMessage =>
-          readBoard <= '0';
+          readBoard <= '1';
           writeBoard <= '0';
-          clearScreen <= '0';
+          clearScreen <= '1';
           writeInvalidMessage <= '1';
           writeOutOfRangeMessage <= '0';
           writeNoWinnerMessage <= '0';
@@ -188,9 +188,9 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
           resetFD <= '0';
           estate <= "0110";
         when outOfRangeMessage =>
-          readBoard <= '0';
+          readBoard <= '1';
           writeBoard <= '0';
-          clearScreen <= '0';
+          clearScreen <= '1';
           writeInvalidMessage <= '0';
           writeOutOfRangeMessage <= '1';
           writeNoWinnerMessage <= '0';
@@ -198,9 +198,9 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
           resetFD <= '0';
           estate <= "0111";
         when noWinnerMessage =>
-          readBoard <= '0';
+          readBoard <= '1';
           writeBoard <= '0';
-          clearScreen <= '0';
+          clearScreen <= '1';
           writeInvalidMessage <= '0';
           writeOutOfRangeMessage <= '0';
           writeNoWinnerMessage <= '1';
@@ -208,9 +208,9 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
           resetFD <= '0';
           estate <= "1000";
         when winnerMessage => 
-          readBoard <= '0';
+          readBoard <= '1';
           writeBoard <= '0';
-          clearScreen <= '0';
+          clearScreen <= '1';
           writeInvalidMessage <= '0';
           writeOutOfRangeMessage <= '0';
           writeNoWinnerMessage <= '0';
@@ -228,15 +228,15 @@ architecture uc_entrada_saida of unidade_controle_entrada_saida is
           resetFD <= '1';
           estate <= "1010";
         when analyzeMove =>
-        readBoard <= '0';
-        writeBoard <= '0';
-        clearScreen <= '0';
-        writeInvalidMessage <= '0';
-        writeOutOfRangeMessage <= '0';
-        writeNoWinnerMessage <= '0';
-        writeWinnerMessage <= '0';
-        resetFD <= '0';
-        estate <= "1011";
+          readBoard <= '0';
+          writeBoard <= '0';
+          clearScreen <= '0';
+          writeInvalidMessage <= '0';
+          writeOutOfRangeMessage <= '0';
+          writeNoWinnerMessage <= '0';
+          writeWinnerMessage <= '0';
+          resetFD <= '0';
+          estate <= "1011";
       end case;
     end process;
 end  uc_entrada_saida;

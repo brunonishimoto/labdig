@@ -15,6 +15,7 @@ entity fluxo_dados_entrada_saida is
        writeOutOfRangeMessage: in  std_logic;
        writeNoWinnerMessage  : in  std_logic;
        writeWinnerMessage    : in  std_logic;
+		   endTransmission		  : in  std_logic;
        moveReceived          : in  std_logic_vector(6 downto 0);
        endDraw               : out std_logic;
        endClear              : out std_logic;
@@ -161,19 +162,19 @@ architecture fd_entrada_saida of fluxo_dados_entrada_saida is
     select_symbolToTransmit: mux_7bits port map (clearScreen, s_symbolBoard, "0001000", s_symbolToTransmit); --select between the symbol in board, or backspace (to clear screen);
 
     --message for invalid move
-    counter_invalid_message: counter generic map (module => to_unsigned(35, 7)) port map (clock, reset, writeInvalidMessage, s_positionInvalidMessage, endInvalidMessage);
+    counter_invalid_message: counter generic map (module => to_unsigned(35, 7)) port map (clock, reset, writeInvalidMessage and endTransmission, s_positionInvalidMessage, endInvalidMessage);
     invalid_move: invalid_move_message port map(clock, writeInvalidMessage, s_positionInvalidMessage(5 downto 0), s_charInvalidMessage);
 
     --message for out of range move
-    counter_out_of_range_message: counter generic map (module => to_unsigned(62,7)) port map (clock, reset, writeOutOfRangeMessage, s_positionOutOfRangeMessage, endOutOfRangeMessage);
+    counter_out_of_range_message: counter generic map (module => to_unsigned(62,7)) port map (clock, reset, writeOutOfRangeMessage and endTransmission, s_positionOutOfRangeMessage, endOutOfRangeMessage);
     out_of_range_move: out_of_range_move_message port map (clock, writeOutOfRangeMessage, s_positionOutOfRangeMessage(5 downto 0), s_charOutOfRangeMessage);
 
     --message for end game with no winner
-    counter_no_winner_message: counter generic map (module => "0001100") port map (clock, reset, writeNoWinnerMessage, s_positionNoWinnerMessage, endNoWinnerMessage);
+    counter_no_winner_message: counter generic map (module => to_unsigned(12, 7)) port map (clock, reset, writeNoWinnerMessage and endTransmission, s_positionNoWinnerMessage, endNoWinnerMessage);
     no_winner: no_winner_message port map (clock, writeNoWinnerMessage, s_positionNoWinnerMessage(3 downto 0), s_charNoWinnerMessage);
 
     --message for winner
-    counter_winner_message: counter generic map (module => to_unsigned(19, 7)) port map (clock, reset, writeWinnerMessage, s_positionWinnerMessage, endWinnerMessage);
+    counter_winner_message: counter generic map (module => to_unsigned(19, 7)) port map (clock, reset, writeWinnerMessage and endTransmission, s_positionWinnerMessage, endWinnerMessage);
     winner1: winner1_message port map (clock, writeWinnerMessage, s_positionWinnerMessage(4 downto 0), s_charWinner1Message);
     winner2: winner2_message port map (clock, writeWinnerMessage, s_positionWinnerMessage(4 downto 0), s_charWinner2Message);
     
