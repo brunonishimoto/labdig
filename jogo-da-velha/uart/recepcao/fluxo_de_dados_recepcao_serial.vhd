@@ -83,8 +83,8 @@ begin
 	comparador_paridade : comparador_de_paridade port map (paridade, s_ascii, paridade_ok);
 	
 	
-	gerador_ticks: contador_tick_recepcao_serial generic map (M => 50000000/110) port map (clock, (not (desloca)) or (not (multiplex)), tick_bit);
-	gerador_start_tick: tick_start generic map (M => 50000000/220) port map (clock, (not (desloca)) or multiplex, tick_start_bit);
+	gerador_ticks: contador_tick_recepcao_serial generic map (M => 2) port map (clock, (not (desloca)) or (not (multiplex)), tick_bit);
+	gerador_start_tick: tick_start generic map (M => 1) port map (clock, (not (desloca)) or multiplex, tick_start_bit);
 	multiplexador_ticks: multiplexador port map (tick_start_bit, tick_bit, multiplex, tick);
 
 	saidaQ <= saida_registrador;

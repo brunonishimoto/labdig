@@ -1,10 +1,34 @@
+# generated folders in quartus
 */db/
 */incremental_db/
 */output_files/
-*/*
-!*/transmissao
-!*/recepcao
-!*/entrada-saida
-!*/uart
-!*/*.vhd
-!*/*.vwf
+*/simulation/
+
+# generated files in quartus
+*/*.qarlog
+*/*.txt
+*/*.bak
+*/*/*.bak
+*/*.qarlog
+*/*.qpf
+*/*.qsf
+*/*.rpt
+*/*.qws
+*/*.qar
+
+#files from modem
+*/modem/db
+*/modem/incremental_db
+*/modem/simulation
+*/modem/*.txt
+*/modem/*.rpt
+*/modem/*.done
+*/modem/*.smsg
+*/modem/*.summary
+*/modem/*.pin
+*/modem/*.qsf
+*/modem/*.qws
+*/modem/*.sld
+*/modem/*.sof
+*/modem/*.qdf
+*/modem/*.qpf

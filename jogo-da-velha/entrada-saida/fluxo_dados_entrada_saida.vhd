@@ -15,7 +15,7 @@ entity fluxo_dados_entrada_saida is
        writeOutOfRangeMessage: in  std_logic;
        writeNoWinnerMessage  : in  std_logic;
        writeWinnerMessage    : in  std_logic;
-		   endTransmission		  : in  std_logic;
+		   endTransmission		   : in  std_logic;
        moveReceived          : in  std_logic_vector(6 downto 0);
        endDraw               : out std_logic;
        endClear              : out std_logic;

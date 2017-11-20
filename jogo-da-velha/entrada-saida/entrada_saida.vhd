@@ -13,11 +13,13 @@ entity entrada_saida is
         readBoard      : out std_logic;
         clearScreen    : out std_logic;
         dataToSend     : out std_logic_vector(6 downto 0);
+        actualPlayer   : out std_logic;
+        endGame        : out std_logic;
         writeBoard     : out std_logic; --depuracao
         validMove      : out std_logic; --depuracao
         outOfRange     : out std_logic; --depuracao
         hasWinner      : out std_logic; --depuracao
-		  endOutOfRange  : out std_logic; --depuracao
+        endOutOfRange  : out std_logic; --depuracao
         estate         : out std_logic_vector(3 downto 0); --depuracao
         addressToRead  : out std_logic_vector(6 downto 0)); --depuracao
 end entrada_saida;
@@ -107,7 +109,7 @@ architecture entrada_saida of entrada_saida is
                                                  s_writeNoWinnerMessage, s_writeWinnerMessage, s_resetFD, estate);
     fd: fluxo_dados_entrada_saida port map (clock, reset or s_resetFD, s_readBoard and endTransmission, s_writeBoard, s_clearScreen, s_checkWinner, s_writeInvalidMessage,
                                             s_writeOutOfRangeMessage, s_writeNoWinnerMessage, s_writeWinnerMessage, endTransmission, moveReceived, s_endDraw, s_endClear, s_endInvalidMessage, s_endOutOfRangeMessage,
-                                            s_endNoWinnerMessage, s_endWinnerMessage, s_endGame, s_validMove, s_outOfRangeMove, s_hasWinner, dataToSend, open, addressToRead, open, open, open);
+                                            s_endNoWinnerMessage, s_endWinnerMessage, s_endGame, s_validMove, s_outOfRangeMove, s_hasWinner, dataToSend, actualPlayer, addressToRead, open, open, open);
 
     readBoard <= s_readBoard;
     writeBoard <= s_writeBoard;
@@ -115,5 +117,6 @@ architecture entrada_saida of entrada_saida is
     validMove <= s_validMove;
     outOfRange <= s_outOfRangeMove;
     hasWinner <= s_hasWinner;
-	 endOutOfRange <= s_endOutOfRangeMessage;
+    endOutOfRange <= s_endOutOfRangeMessage;
+    endGame <= s_endGame;
 end  entrada_saida;
